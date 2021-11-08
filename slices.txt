@@ -38,4 +38,3 @@ const user = {
   cart: [],
   admin: boolean
 }
-
