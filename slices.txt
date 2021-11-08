@@ -1,0 +1,41 @@
+Vertical Slices:
+
+[] Create mock-data for user
+[] Create mock-data for admin
+[] DB set-up and model creation
+[] Database seeding
+[] Homepage with navbar/links
+[] All products page
+[] Single product page
+[] Create shopping cart
+[] Add a product to cart
+[] Edit product in cart
+[] Checkout
+[] Account creation
+[] Account login page
+[] Administrator user to manage items available in the store
+[] Security/Authorization?
+
+
+Spaceship Model:
+const spaceship = {
+  name: "",
+  price: number,
+  fuelType: ["solar", "rocket fuel", "hydrogen"],
+  size: ["sm", "med", "lg"],
+  range: number,
+  purpose: ["exploration", "mining", "warship", "transportation"],
+  speed: number,
+  autopilot: boolean,
+  description: "",
+  image: "url"
+}
+
+User Model:
+const user = {
+  username: "",
+  password: "",
+  cart: [],
+  admin: boolean
+}
+

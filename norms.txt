@@ -1,0 +1,62 @@
+Orange-Ostriches
+Selling you the spaceship of your dreams!
+
+Roles:
+* Product Manager
+  - Responsible for reviewing that each feature meets all requirements upon pull request submission
+* Gitmaster
+  - Responsible for managing the various issues within Github
+* QA
+  - Responsible for reviewing/approving pull requests
+
+1) Disagreements and implementations (which require a decision) are to be put up for a majority vote.
+  * If 50/50 split, reach out to instructor/fellow for guidance.
+
+2) Dealing with frustration:
+  * During times of frustration, step away for 10-15 minutes then reconvene later.
+
+3) Pull Requests:
+  * Avoid submitting pull requests that are excessive in length
+  * Will be assigned to Testmaster (will rotate )
+
+4) In general, try not to stay stuck on something for more than a couple hours. Either reach out to a teammate or fellow/instructor.
+  * We will quickly ask each person in the group if there is something that they've been stuck on during our team stand-up.
+
+5) During team stand-up, we can ask each person being assigned if they would like to work on it (or a portion of it) with another team-member.
+
+6) We'll use our Slack channel for open communication. Responses are not expected immediately, but whenever available. We agree to work on the project during whatever time windows are most appropriate for each individual person.
+
+7) Daily stand-up will take place at 2:30EST/12:30MST/11:30PST
+  * Daily Stand-up will be 15 minutes long
+  * Additional meetings/reviews can be set-up on an as-needed basis
+
+General workflow:
+1) Be assigned a ticket/issue
+  - Product manager assigns ticket/issue
+2) Review ticket/issue thoroughly and understand what needs to be done
+  - Product manager is point of contact for any questions about the ticket/issue assigned.
+  - Product manager aggregates and is the sole person who reaches out to instructors/fellows with any group questions.
+3) Crunch time
+4) Once you feel that ticket/issue is completed, have someone else review your work.
+  - QA will test each pull request for proper functionality
+  - Gitmaster will then look over the code to review for effiencies/optimizations
+5) Upon agreement that ticket/issue is completed, it is merged into the main branch.
+  - Gitmaster will approve pull request once review is complete.
+6) Go back to step 1
+
+Swap Roles during Stand-Up:
+
+Assign initial roles 11/08
+  - Product Manager: Wilson
+  - Gitmaster: Zack/David
+  - QA: Rusty
+
+1st role-swap 11/12
+  -
+  -
+  -
+
+2nd role-swap 11/16
+  -
+  -
+  -
