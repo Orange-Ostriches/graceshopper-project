@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../store/products';
 
-const AllProducts = () => {
+export const AllProducts = () => {
 
   const { products } = useSelector(state => state);
   const dispatch = useDispatch();
@@ -35,8 +35,6 @@ const AllProducts = () => {
       </div>
   )
 }
-
-export default AllProducts;
 
 /**
 class AllProducts extends Component {
