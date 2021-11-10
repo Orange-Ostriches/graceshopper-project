@@ -7,12 +7,14 @@ const getSingleProduct = product => ({
   product
 });
 
-export const fetchSingleProduct = (id) => async dispatch => {
-  try {
-    const { data } = await axios.get(`/api/spaceships/${id}`)
-    dispatch(getSingleProduct(data))
-  } catch (error) {
-    console.log(error)
+export const fetchSingleProduct = (id) => {
+  return async dispatch => {
+    try {
+      const { data } = await axios.get(`/api/spaceships/${id}`)
+      dispatch(getSingleProduct(data))
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
