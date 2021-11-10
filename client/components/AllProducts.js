@@ -5,14 +5,6 @@ import { fetchProducts } from '../store/products';
 export const AllProducts = () => {
 
   const { products } = useSelector(state => state);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const run = async () => {
-  //     dispatch(fetchProducts());
-  //   };
-  //   run();
-  // }, [])
 
   return (
     <div id="all-products">

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../store/products';
 
 /**
@@ -7,8 +7,7 @@ import { fetchProducts } from '../store/products';
  */
 export const Home = () => {
 
-  const { username } = useSelector(state => state.auth);
-  const { products } = useSelector(state => state);
+  const { auth: {username}, products } = useSelector(state => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,14 +35,3 @@ export const Home = () => {
     </div>
   )
 }
-
-/**
- * CONTAINER
- */
-// const mapState = state => {
-//   return {
-//     username: state.auth.username
-//   }
-// }
-
-// export default connect(mapState)(Home)
