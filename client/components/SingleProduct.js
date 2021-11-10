@@ -5,7 +5,11 @@ import { connect } from 'react-redux'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
-    this.props.getSingleProduct(this.props.match.params.id)
+    try {
+      this.props.getSingleProduct(this.props.match.params.id);
+    } catch (error) {
+      console.error(error)
+    }
   }
   render() {
     const { product } = this.props
@@ -13,7 +17,7 @@ class SingleProduct extends React.Component {
     return (
       <div>
         <div className="back-to-home">
-          <Link to="/">Back to All Spaceships</Link>
+          <Link to="/products">Back to All Spaceships</Link>
         </div>
         <div className="single-product-container">
           <div className="single-product-image">
