@@ -12,14 +12,15 @@ const setProducts = products => ({
 // Thunks
 export const fetchProducts = () => async dispatch => {
   try {
-    const { data } = await axios.get('/api/products')
+    const { data } = await axios.get('/api/spaceships')
     dispatch(setProducts(data))
   } catch (error) {
     console.log(error)
   }
 }
 
-export default function productsReducer(state = [], action) {
+// Reducer
+export default function (state = [], action) {
   switch (action.type) {
     case SET_PRODUCTS:
       return action.products
