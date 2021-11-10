@@ -23,3 +23,16 @@ form div {
 .account-links {
   float: right;
 }
+
+#carousel-title {
+  text-align: center;
+}
+
+#carousel {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#product {
+  margin: 25px;
+}
