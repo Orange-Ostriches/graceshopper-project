@@ -5,10 +5,11 @@ import { connect } from 'react-redux'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
-    this.props.fetchSingleProduct(this.props.match.params.id)
+    this.props.getSingleProduct(this.props.match.params.id)
   }
   render() {
     const { product } = this.props
+    console.log(product)
     return (
       <div>
         <div className="back-to-home">
@@ -16,7 +17,7 @@ class SingleProduct extends React.Component {
         </div>
         <div className="single-product-container">
           <div className="single-product-image">
-            <img src={product.imageUrl} alt={product.name} />
+            <img src={product.image} alt={product.name} />
           </div>
           <div className="single-product-info">
             <h2>{product.name}</h2>
@@ -29,7 +30,7 @@ class SingleProduct extends React.Component {
                 <option value="large">Large</option>
               </select>
             </p>
-            <button clasName="add-to-cart">Add To Cart</button>
+            <button classsName="add-to-cart">Add To Cart</button>
           </div>
         </div>
       </div>
