@@ -33,7 +33,7 @@ class SingleProduct extends React.Component {
                 <option value="large">Large</option>
               </select>
             </p>
-            <button classsName="add-to-cart">Add To Cart</button>
+            <button className="add-to-cart">Add To Cart</button>
           </div>
         </div>
       </div>
