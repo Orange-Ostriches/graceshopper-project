@@ -13,7 +13,6 @@ class SingleProduct extends React.Component {
   }
   render() {
     const { product } = this.props
-    console.log(product)
     return (
       <div>
         <div className="back-to-home">
