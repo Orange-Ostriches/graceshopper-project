@@ -12,3 +12,11 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    const spaceship = await Spaceship.findByPk(req.params.id);
+    res.json(spaceship);
+  } catch (error) {
+    next(error)
+  }
+});

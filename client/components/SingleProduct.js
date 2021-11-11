@@ -5,18 +5,22 @@ import { connect } from 'react-redux'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
-    this.props.fetchSingleProduct(this.props.match.params.id)
+    try {
+      this.props.getSingleProduct(this.props.match.params.id);
+    } catch (error) {
+      console.error(error)
+    }
   }
   render() {
     const { product } = this.props
     return (
       <div>
         <div className="back-to-home">
-          <Link to="/">Back to All Spaceships</Link>
+          <Link to="/products">Back to All Spaceships</Link>
         </div>
         <div className="single-product-container">
           <div className="single-product-image">
-            <img src={product.imageUrl} alt={product.name} />
+            <img src={product.image} alt={product.name} />
           </div>
           <div className="single-product-info">
             <h2>{product.name}</h2>
@@ -29,7 +33,7 @@ class SingleProduct extends React.Component {
                 <option value="large">Large</option>
               </select>
             </p>
-            <button clasName="add-to-cart">Add To Cart</button>
+            <button className="add-to-cart">Add To Cart</button>
           </div>
         </div>
       </div>
