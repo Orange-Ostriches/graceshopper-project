@@ -36,3 +36,12 @@ form div {
 #product {
   margin: 25px;
 }
+
+#logo {
+  width: 100px;
+}
+
+#logo-name {
+  display: flex;
+  flex-wrap: wrap;
+}
