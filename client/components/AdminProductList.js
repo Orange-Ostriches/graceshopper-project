@@ -25,6 +25,10 @@ const AdminProductList = () => {
         {products.map((product) => (
           <div key={product.id} id="product">
             {product.name}
+            <br />
+            <Link to={`/products/${product.id}`}>
+              <button>View Product Page</button>
+            </Link>
           </div>
         ))}
       </div>

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Spaceship },
+  models: { Spaceship, User },
 } = require("../db");
 module.exports = router;
 
@@ -18,6 +18,22 @@ router.get("/:id", async (req, res, next) => {
   try {
     const spaceship = await Spaceship.findByPk(req.params.id);
     res.json(spaceship);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const { isAdmin } = await User.findByToken(req.headers.authorization);
+    if (isAdmin !== true) {
+      const error = Error("Unauthorized access");
+      error.status = 401;
+      throw error;
+    }
+    const spaceship = await Spaceship.findByPk(req.params.id);
+    await spaceship.destroy();
+    res.send(spaceship);
   } catch (error) {
     next(error);
   }

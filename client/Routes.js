@@ -29,7 +29,8 @@ class Routes extends Component {
             <Route path="/admin-portal" component={AdminPortal} />
             <Route path="/admin-users" component={AdminUserList} />
             <Route path="/admin-products" component={AdminProductList} />
-            <Route path="/products" component={AllProducts} />
+            <Route exact path="/products" component={AllProducts} />
+            <Route exact path="/products/:id" component={SingleProduct} />
             <Redirect to="/" />
           </Switch>
         ) : (

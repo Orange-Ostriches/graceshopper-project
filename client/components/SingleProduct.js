@@ -1,18 +1,28 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { fetchSingleProduct } from '../store/product'
-import { connect } from 'react-redux'
+import React from "react";
+import { Link } from "react-router-dom";
+import { fetchSingleProduct } from "../store/product";
+import { deleteProduct } from "../store/products";
+import { connect } from "react-redux";
 
 class SingleProduct extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
   componentDidMount() {
     try {
       this.props.getSingleProduct(this.props.match.params.id);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
+
+  handleDelete(event) {
+    this.props.deleteProduct(parseInt(event.target.id));
+  }
+
   render() {
-    const { product } = this.props
+    const { product, isAdmin } = this.props;
     return (
       <div>
         <div className="back-to-home">
@@ -26,31 +36,46 @@ class SingleProduct extends React.Component {
             <h2>{product.name}</h2>
             <h3>Price: ${product.price}</h3>
             <p>Description: {product.description}</p>
-            <p>Size:
+            <p>
+              Size:
               <select>
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="large">Large</option>
               </select>
             </p>
-            <button className="add-to-cart">Add To Cart</button>
+            {isAdmin ? (
+              <div>
+                <button>Edit This Product</button>
+                <br />
+                <Link to="/admin-products">
+                  <button onClick={this.handleDelete} id={product.id}>
+                    Delete This Product
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              <button className="add-to-cart">Add To Cart</button>
+            )}
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    product: state.product
-  }
-}
+    product: state.product,
+    isAdmin: state.auth.isAdmin,
+  };
+};
 
 const dispatchToProps = (dispatch) => {
   return {
-    getSingleProduct: (id) => dispatch(fetchSingleProduct(id))
-  }
-}
+    getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
+    deleteProduct: (id) => dispatch(deleteProduct(id)),
+  };
+};
 
-export default connect(mapStateToProps, dispatchToProps)(SingleProduct)
+export default connect(mapStateToProps, dispatchToProps)(SingleProduct);
