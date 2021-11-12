@@ -1,11 +1,33 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import CartItem from './CartItem'
 
-export default class Cart extends React.Component {
+class Cart extends React.Component {
   render() {
+
+    const listOfItems = this.props.cart.cartItems.map((item) => {
+      return (
+        <li><CartItem item={item} /></li>
+      )
+    })
+
     return (
       <div>
         <h1>Cart</h1>
+        <ul>
+          {listOfItems}
+        </ul>
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart,
+    isLoggedIn: !!state.auth.id
+  }
+}
+
+
+export default connect(mapStateToProps)(Cart)

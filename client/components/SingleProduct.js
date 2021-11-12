@@ -18,7 +18,7 @@ class SingleProduct extends React.Component {
   }
 
   handleClick = () => {
-    this.props.itemToCart(this.props.product)
+    this.props.itemToCart(this.props.product, this.props.isLoggedIn)
     alert('Added to cart!')
   }
 
@@ -57,7 +57,8 @@ class SingleProduct extends React.Component {
 const mapStateToProps = (state) => {
   return {
     product: state.product,
-    cart: state.cart
+    cart: state.cart,
+    isLoggedIn: !!state.auth.id
   }
 }
 
