@@ -12,9 +12,10 @@ const addToCart = (product) => {
 export const addItemToCart = (product) => {
   return async (dispatch) => {
     try {
-      const res = await axios.post('/api/cart', product)
+      const res = await axios.post(`/api/carts`, product )
       const addedProduct = res.data
       console.log(addedProduct)
+      dispatch(addToCart(addedProduct))
     } catch (error) {
       console.log(error)
     }

@@ -5,6 +5,10 @@ import { connect } from 'react-redux'
 import { addItemToCart } from '../store/cart'
 
 class SingleProduct extends React.Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
   componentDidMount() {
     try {
       this.props.getSingleProduct(this.props.match.params.id);
@@ -14,7 +18,7 @@ class SingleProduct extends React.Component {
   }
 
   handleClick = () => {
-    this.props.addItemToCart(this.props.product)
+    this.props.itemToCart(this.props.product)
     alert('Added to cart!')
   }
 
@@ -60,7 +64,7 @@ const mapStateToProps = (state) => {
 const dispatchToProps = (dispatch) => {
   return {
     getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
-    addItemToCart: (item) => dispatch(addItemToCart(item))
+    itemToCart: (item) => dispatch(addItemToCart(item))
   }
 }
 
