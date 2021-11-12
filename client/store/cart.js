@@ -12,9 +12,10 @@ const addToCart = (product) => {
 export const addItemToCart = (product) => {
   return async (dispatch) => {
     try {
+      console.log('this is product', product)
       const res = await axios.post(`/api/carts`, product )
       const addedProduct = res.data
-      console.log(addedProduct)
+      console.log('this is added', addedProduct)
       dispatch(addToCart(addedProduct))
     } catch (error) {
       console.log(error)
@@ -22,10 +23,13 @@ export const addItemToCart = (product) => {
   }
 }
 
-export default function (state = [], action) {
+const initialState = {
+  cart: []
+}
+export default function (state = initialState, action) {
   switch (action.type) {
     case ADD_TO_CART:
-      return [...state, action.product]
+      return { ...state, cart: [...state.cart, action.product] }
     default:
       return state
   }

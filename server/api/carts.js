@@ -15,8 +15,8 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
- const { products } = req.body;
- try {
+  try {
+   const { products } = req.body;
    const cart = await Cart.create({ products });
    res.send(cart);
  } catch (error) {
