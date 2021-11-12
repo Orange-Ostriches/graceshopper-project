@@ -24,12 +24,12 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/auth", async (req, res, next) => {
-  try {
-    console.log(req.headers.authorization);
-    const { id, isAdmin } = await User.findByToken(req.headers.authorization);
-    res.send({ id, isAdmin });
-  } catch (err) {
-    next(err);
-  }
-});
+// router.get("/auth", async (req, res, next) => {
+//   try {
+//     console.log(req.headers.authorization);
+//     const { id, isAdmin } = await User.findByToken(req.headers.authorization);
+//     res.send({ id, isAdmin });
+//   } catch (err) {
+//     next(err);
+//   }
+// });

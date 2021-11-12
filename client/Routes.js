@@ -1,12 +1,14 @@
-import React, {Component, Fragment} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import {AllProducts} from './components/AllProducts';
-import { Login, Signup } from './components/AuthForm';
-import {Home} from './components/Home';
-import {me} from './store'
-import SingleProduct from './components/SingleProduct';
-import AllUsers from "./components/AllUsers";
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { AllProducts } from "./components/AllProducts";
+import { Login, Signup } from "./components/AuthForm";
+import { Home } from "./components/Home";
+import { me } from "./store";
+import SingleProduct from "./components/SingleProduct";
+import AdminUserList from "./components/AdminUserList";
+import AdminPortal from "./components/AdminPortal";
+import AdminProductList from "./components/AdminProductList";
 
 /**
  * COMPONENT
@@ -24,13 +26,15 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/users" component={AllUsers} />
+            <Route path="/admin-portal" component={AdminPortal} />
+            <Route path="/admin-users" component={AdminUserList} />
+            <Route path="/admin-products" component={AdminProductList} />
             <Route path="/products" component={AllProducts} />
             <Redirect to="/" />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={ Home } />
+            <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/products" component={AllProducts} />
@@ -50,6 +54,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    isAdmin: state.auth.isAdmin,
   };
 };
 

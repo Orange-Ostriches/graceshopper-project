@@ -1,9 +1,9 @@
 import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-// import { fetchUsers } from "../store/users";
+import { Link } from "react-router-dom";
 
-const AllUsers = () => {
+const AdminUserList = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -28,6 +28,9 @@ const AllUsers = () => {
           </div>
         ))}
       </div>
+      <Link to="/admin-portal">
+        <button>Back to Administrator Portal</button>
+      </Link>
     </div>
   );
 };
@@ -38,4 +41,4 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState)(AllUsers);
+export default connect(mapState)(AdminUserList);
