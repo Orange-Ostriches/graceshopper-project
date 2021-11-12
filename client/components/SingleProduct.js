@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { fetchSingleProduct } from "../store/product";
 import { deleteProduct } from "../store/products";
 import { connect } from "react-redux";
+const ooName = "Orange Ostriches SpaceCo";
 
 class SingleProduct extends React.Component {
   constructor(props) {
@@ -18,7 +19,19 @@ class SingleProduct extends React.Component {
   }
 
   handleDelete(event) {
-    this.props.deleteProduct(parseInt(event.target.id));
+    let confirmation = confirm(
+      `This will permanently delete this item from ${ooName}'s database! Are you sure you wish to proceed?`
+    );
+    const redirect = () => {
+      window.location = `/products/${this.props.product.id}`;
+    };
+
+    if (confirmation) {
+      this.props.deleteProduct(parseInt(event.target.id));
+      alert(`${this.props.product.name} has been removed from the database.`);
+    } else {
+      redirect();
+    }
   }
 
   render() {
