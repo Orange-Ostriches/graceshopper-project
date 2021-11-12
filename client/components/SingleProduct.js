@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { fetchSingleProduct } from '../store/product'
 import { connect } from 'react-redux'
+import { addItemToCart } from '../store/cart'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -11,6 +12,12 @@ class SingleProduct extends React.Component {
       console.error(error)
     }
   }
+
+  handleClick = () => {
+    this.props.addItemToCart(this.props.product)
+    alert('Added to cart!')
+  }
+
   render() {
     const { product } = this.props
     return (
@@ -26,14 +33,16 @@ class SingleProduct extends React.Component {
             <h2>{product.name}</h2>
             <h3>Price: ${product.price}</h3>
             <p>Description: {product.description}</p>
-            <p>Size:
+            <p>Qty:
               <select>
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
+                <option value="one">1</option>
+                <option value="two">2</option>
+                <option value="three">3</option>
+                <option value="four">4</option>
+                <option value="five">5</option>
               </select>
             </p>
-            <button className="add-to-cart">Add To Cart</button>
+            <button className="add-to-cart" onClick={this.handleClick}>Add To Cart</button>
           </div>
         </div>
       </div>
@@ -43,13 +52,15 @@ class SingleProduct extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    product: state.product
+    product: state.product,
+    cart: state.cart
   }
 }
 
 const dispatchToProps = (dispatch) => {
   return {
-    getSingleProduct: (id) => dispatch(fetchSingleProduct(id))
+    getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
+    addItemToCart: (item) => dispatch(addItemToCart(item))
   }
 }
 
