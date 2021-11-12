@@ -15,11 +15,16 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
- const { products } = req.body;
- try {
-   const cart = await Cart.create({ products });
-   res.send(cart);
- } catch (error) {
-   next(error);
- }
+  const product = req.body;
+
+  try {
+    // here I can check for an existing cart in localStorage
+      // if cart in localStorage, then don't create a new cart
+    const cart = await Cart.create();
+    console.log(Object.keys(cart.__proto__))
+    await cart.addSpaceship(product.id)
+    res.send(await cart.getSpaceships());
+  } catch (error) {
+    next(error);
+  }
 })
