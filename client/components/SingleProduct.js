@@ -1,16 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { fetchSingleProduct } from '../store/product'
+import { fetchSingleProduct } from '../store/singleProduct'
 import { connect } from 'react-redux'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
-    try {
       this.props.getSingleProduct(this.props.match.params.id);
-    } catch (error) {
-      console.error(error)
-    }
   }
+
   render() {
     const { product } = this.props
     return (
@@ -20,7 +17,7 @@ class SingleProduct extends React.Component {
         </div>
         <div className="single-product-container">
           <div className="single-product-image">
-            <img src={product.image} alt={product.name} />
+            <img width="400px" src={product.image} alt={product.name} />
           </div>
           <div className="single-product-info">
             <h2>{product.name}</h2>

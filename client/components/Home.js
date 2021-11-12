@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts } from '../store/products';
+import { fetchFeatProducts } from '../store/products';
 
 /**
  * COMPONENT
@@ -12,13 +12,11 @@ export const Home = () => {
 
   useEffect(() => {
     const run = async () => {
-      dispatch(fetchProducts());
+      dispatch(fetchFeatProducts());
     };
     run();
   }, [])
 
-  console.log('USER', username);
-  console.log('PRODUCTS', products);
   return (
     <div>
       <h3>Welcome, {username !== undefined ? username : "Guest"}!</h3>
@@ -26,7 +24,7 @@ export const Home = () => {
       <div id="carousel">
         {products.map(product => (
           <div key={product.id} id="product">
-            <img width="400px" src={product.image} />
+            <img className="prod-img" src={product.image} />
             <h1>{product.name}</h1>
             <h3>Price: {product.price}</h3>
           </div>

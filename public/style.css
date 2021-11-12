@@ -33,12 +33,27 @@ form div {
   flex-wrap: wrap;
 }
 
+#products {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
 #product {
   margin: 25px;
 }
 
+.prod-img {
+  width: 400px;
+}
+
+#desc {
+  width: 400px;
+}
+
 #logo {
   width: 100px;
+  margin: 10px;
 }
 
 #logo-name {

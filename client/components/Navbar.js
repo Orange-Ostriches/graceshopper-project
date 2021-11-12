@@ -6,7 +6,7 @@ import {logout} from '../store'
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <div id='logo-name'>
-      <img id='logo' src='logo.png' />
+      <img id='logo' src='/images/logo.png' />
       <h1>Orange Ostriches SpaceCo</h1>
     </div>
     <nav>
