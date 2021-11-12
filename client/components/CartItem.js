@@ -4,9 +4,12 @@ import { connect } from 'react-redux'
 class CartItem extends React.Component {
 
   render() {
-    console.log(this.props.item)
+
     return (
+      <li>
         <p>{this.props.item.name}</p>
+        <p>Quantity: {this.props.item.qty}</p>
+      </li>
     )
   }
 }

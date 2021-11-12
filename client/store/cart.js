@@ -2,18 +2,18 @@ import axios from 'axios'
 
 const ADD_TO_CART = 'ADD_TO_CART'
 
-const addToCart = (product, qty ) => {
+const addToCart = (product, qty = 1 ) => {
   return {
     type: ADD_TO_CART,
-    product
+    product: {...product, qty}
   }
 }
 
 export const addItemToCart = (product, isLoggedIn) => {
   return async (dispatch, getState) => {
     if(!isLoggedIn) {
-      localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
       dispatch(addToCart(product))
+      localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
     }
     // else {
     //   try {
@@ -40,11 +40,33 @@ const initialCart = {
 export default function (state = initialCart, action) {
   switch (action.type) {
     case ADD_TO_CART:
-      return {
-        ...state,
-        cartItems: [...state.cartItems, action.product]
+
+      const existingItem = state.cartItems.find((item) => {
+        return item.id === action.product.id})
+
+      if(existingItem) {
+
+        action.product.qty += existingItem['qty']
+
+        return {
+          ...state,
+          cartItems: state.cartItems.map((item) => {
+            return item === existingItem ? action.product : item
+          })
+          }
+        }
+
+      else {
+        return {
+          ...state,
+          cartItems: [...state.cartItems, action.product]
+        }
       }
-    default:
-      return state
-  }
+
+      default:
+        return state
+    }
+
+
 }
+

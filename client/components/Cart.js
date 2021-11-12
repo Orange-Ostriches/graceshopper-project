@@ -3,17 +3,19 @@ import { connect } from 'react-redux'
 import CartItem from './CartItem'
 
 class Cart extends React.Component {
+
+
   render() {
 
     const listOfItems = this.props.cart.cartItems.map((item) => {
       return (
-        <li><CartItem item={item} /></li>
+        <CartItem item={item} key={item.id}/>
       )
     })
 
     return (
       <div>
-        <h1>Cart</h1>
+        <h1>Items in Cart</h1>
         <ul>
           {listOfItems}
         </ul>
