@@ -9,10 +9,7 @@ export const AllProducts = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const run = async () => {
-      dispatch(fetchProducts());
-    };
-    run();
+    dispatch(fetchProducts());
   }, [])
 
   return (

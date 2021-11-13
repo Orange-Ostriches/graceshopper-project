@@ -10,9 +10,9 @@ const setProducts = products => ({
   products
 })
 
-const featProducts = products => ({
+const featProducts = featProducts => ({
   type: FEAT_PRODUCTS,
-  products
+  featProducts
 })
 
 // Thunks
@@ -28,7 +28,7 @@ export const fetchProducts = () => async dispatch => {
 export const fetchFeatProducts = () => async dispatch => {
   try {
     const { data } = await axios.get('/api/spaceships/featured')
-    dispatch(setProducts(data))
+    dispatch(featProducts(data))
   } catch (error) {
     console.log(error)
   }
@@ -38,8 +38,9 @@ export const fetchFeatProducts = () => async dispatch => {
 export default function (state = [], action) {
   switch (action.type) {
     case SET_PRODUCTS:
-    case FEAT_PRODUCTS:
       return action.products
+    case FEAT_PRODUCTS:
+      return action.featProducts
     default:
       return state
   }

@@ -24,24 +24,36 @@ form div {
   float: right;
 }
 
-#carousel-title {
+.carousel-title {
   text-align: center;
+}
+
+#main-prod-title {
+  text-align: center;
+}
+
+#main-prod-img {
+  width: 800px;
+  display: block;
+  margin: auto;
 }
 
 #carousel {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 #products {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
-
 
 #product {
   margin: 25px;
 }
+
 
 .prod-img {
   width: 400px;

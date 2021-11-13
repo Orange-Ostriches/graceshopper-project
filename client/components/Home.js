@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchFeatProducts } from '../store/products';
 
@@ -8,28 +8,48 @@ import { fetchFeatProducts } from '../store/products';
 export const Home = () => {
 
   const { auth: {username}, products } = useSelector(state => state);
+  const [mainProduct, setMainProduct] = useState({});
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const run = async () => {
-      dispatch(fetchFeatProducts());
-    };
-    run();
+    dispatch(fetchFeatProducts())
   }, [])
+
+  useEffect(() => {
+    if (products.length > 0) {
+      setMainProduct(products[0]);
+    }
+  }, [products])
 
   return (
     <div>
       <h3>Welcome, {username !== undefined ? username : "Guest"}!</h3>
-      <h2 id="carousel-title">Featured Products</h2>
-      <div id="carousel">
-        {products.map(product => (
-          <div key={product.id} id="product">
-            <img className="prod-img" src={product.image} />
-            <h1>{product.name}</h1>
-            <h3>Price: {product.price}</h3>
+      {
+        Object.keys(mainProduct).length === 0 ? (
+          <h1 className="carousel-title">Loading...</h1>
+          ) : (
+          <div className="main">
+            <h1 className="carousel-title">Featured Products</h1>
+            <div id="carousel-main">
+              <img id="main-prod-img" src={mainProduct.image} />
+              <h2 id="main-prod-title">{mainProduct.name}</h2>
+            </div>
+            <div id="carousel">
+              {products.map(product => (
+                <div key={product.id} id="product">
+                  <img
+                    className="prod-img"
+                    src={product.image}
+                    onClick={() => setMainProduct(product)}
+                  />
+                  <h3>{product.name}</h3>
+                  <h4>Price: {product.price}</h4>
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
-      </div>
+        )
+      }
     </div>
   )
 }
