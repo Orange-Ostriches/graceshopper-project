@@ -9,24 +9,11 @@ const addToCart = (product, qty = 1 ) => {
   }
 }
 
-<<<<<<< HEAD
-export const addItemToCart = (product) => {
-  return async (dispatch) => {
-    try {
-      // or check localStorage
-      const res = await axios.post(`/api/carts`, product )
-      const addedProduct = res.data
-      console.log('THUNK', addedProduct)
-      dispatch(addToCart(addedProduct))
-    } catch (error) {
-      console.log(error)
-=======
 export const addItemToCart = (product, isLoggedIn) => {
   return async (dispatch, getState) => {
     if(!isLoggedIn) {
       dispatch(addToCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
->>>>>>> 860e3317226317a0b85612106e3674ec20fbab5a
     }
     // else {
     //   try {
