@@ -59,7 +59,9 @@ class SingleProduct extends React.Component {
             </p>
             {isAdmin ? (
               <div>
-                <button>Edit This Product</button>
+                <Link to={`/products/${product.id}/edit`}>
+                  <button>Edit This Product</button>
+                </Link>
                 <br />
                 <Link to="/admin-products">
                   <button onClick={this.handleDelete} id={product.id}>

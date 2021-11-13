@@ -38,3 +38,18 @@ router.delete("/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+router.put("/:id", async (req, res, next) => {
+  try {
+    const { isAdmin } = await User.findByToken(req.headers.authorization);
+    if (isAdmin !== true) {
+      const error = Error("Unauthorized access");
+      error.status = 401;
+      throw error;
+    }
+    const spaceship = await Spaceship.findByPk(req.params.id);
+    res.send(await spaceship.update(req.body));
+  } catch (error) {
+    next(error);
+  }
+});
