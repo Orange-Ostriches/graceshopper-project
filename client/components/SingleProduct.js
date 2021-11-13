@@ -17,8 +17,8 @@ class SingleProduct extends React.Component {
     }
   }
 
-  handleClick = () => {
-    this.props.itemToCart(this.props.product)
+  handleClick = (event) => {
+    this.props.itemToCart(this.props.product, this.props.isLoggedIn)
     alert('Added to cart!')
   }
 
@@ -37,15 +37,6 @@ class SingleProduct extends React.Component {
             <h2>{product.name}</h2>
             <h3>Price: ${product.price}</h3>
             <p>Description: {product.description}</p>
-            <p>Qty:
-              <select>
-                <option value="one">1</option>
-                <option value="two">2</option>
-                <option value="three">3</option>
-                <option value="four">4</option>
-                <option value="five">5</option>
-              </select>
-            </p>
             <button className="add-to-cart" onClick={this.handleClick}>Add To Cart</button>
           </div>
         </div>
@@ -56,7 +47,9 @@ class SingleProduct extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    product: state.product
+    product: state.product,
+    cart: state.cart,
+    isLoggedIn: !!state.auth.id
   }
 }
 

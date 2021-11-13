@@ -14,6 +14,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+<<<<<<< HEAD
 // GET /api/carts/:id
 router.get("/:id", async (req, res, next) => {
   try {
@@ -33,13 +34,33 @@ router.post("/", async (req, res, next) => {
     next(error);
   }
 });
+=======
+router.put("/", async (req, res, next) => {
+  const product = req.body;
+  // localStorage.setItem('cart', { cart object })
+  // just store locally for guest user
+>>>>>>> 860e3317226317a0b85612106e3674ec20fbab5a
 
 // PUT /api/carts/:id
 router.put("/:id", async (req, res, next) => {
   try {
+<<<<<<< HEAD
     const cart = await Cart.findByPk(req.params.id);
     await cart.update(req.body);
     res.json(cart);
+=======
+    // here I can check for an existing cart in localStorage
+      // if cart in localStorage, then don't create a new cart
+    const cart = await Cart.findOrCreate();
+    // console.log(Object.keys(cart.__proto__))
+
+    // if cart exists
+      // then findOrCreate a cart
+      // {where: not checked out}
+
+    await cart.addSpaceship(product.id)
+    res.send(cart);
+>>>>>>> 860e3317226317a0b85612106e3674ec20fbab5a
   } catch (error) {
     next(error);
   }
