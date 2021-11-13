@@ -20,6 +20,9 @@ const AdminProductList = () => {
 
   return (
     <div id="admin-product-list">
+      <Link to="/admin-products/create">
+        <button>Create New Product</button>
+      </Link>
       <h1>Product List</h1>
       <div id="admin-products">
         {products.map((product) => (

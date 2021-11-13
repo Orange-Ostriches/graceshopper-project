@@ -39,7 +39,11 @@ class SingleProduct extends React.Component {
     return (
       <div>
         <div className="back-to-home">
-          <Link to="/products">Back to All Spaceships</Link>
+          {isAdmin ? (
+            <Link to="/admin-products">Back to Admin Product Portal</Link>
+          ) : (
+            <Link to="/products">Back to All Spaceships</Link>
+          )}
         </div>
         <div className="single-product-container">
           <div className="single-product-image">

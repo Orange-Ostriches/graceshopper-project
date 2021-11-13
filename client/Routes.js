@@ -10,6 +10,7 @@ import AdminUserList from "./components/AdminUserList";
 import AdminPortal from "./components/AdminPortal";
 import AdminProductList from "./components/AdminProductList";
 import AdminEditProduct from "./components/AdminEditProduct";
+import AdminCreateProduct from "./components/AdminCreateProduct";
 
 /**
  * COMPONENT
@@ -29,7 +30,11 @@ class Routes extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/admin-portal" component={AdminPortal} />
             <Route path="/admin-users" component={AdminUserList} />
-            <Route path="/admin-products" component={AdminProductList} />
+            <Route exact path="/admin-products" component={AdminProductList} />
+            <Route
+              path="/admin-products/create"
+              component={AdminCreateProduct}
+            />
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route path="/products/:id/edit" component={AdminEditProduct} />

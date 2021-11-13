@@ -24,6 +24,21 @@ export const fetchSingleProduct = (id) => {
   };
 };
 
+export const createProduct = (product) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`/api/spaceships/create`, product, {
+        headers: {
+          Authorization: window.localStorage.token,
+        },
+      });
+      dispatch(getSingleProduct(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const updateProduct = (product) => {
   return async (dispatch) => {
     try {
