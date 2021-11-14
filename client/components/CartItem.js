@@ -29,17 +29,17 @@ class CartItem extends React.Component {
         </button>
 
         <button
-        className="remove-item"
-        onClick={() => this.props.removeItem(item)}
-        >
-        Remove From Cart
-        </button>
-
-        <button
         className="increment-item"
         onClick={() => this.props.incrementItem(item)}
         >
         +
+        </button>
+
+        <button
+        className="remove-item"
+        onClick={() => this.props.removeItem(item)}
+        >
+        Remove From Cart
         </button>
 
       </>

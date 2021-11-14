@@ -12,6 +12,7 @@ import AdminPortal from "./components/AdminPortal";
 import AdminProductList from "./components/AdminProductList";
 import AdminEditProduct from "./components/AdminEditProduct";
 import AdminCreateProduct from "./components/AdminCreateProduct";
+import Checkout from './components/Checkout';
 
 /**
  * COMPONENT
@@ -49,6 +50,7 @@ class Routes extends Component {
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route exact path="/cart" component={Cart} />
+            <Route exact path="/checkout" component={Checkout} />
           </Switch>
         )}
       </div>

@@ -1,10 +1,12 @@
 /* eslint-disable no-fallthrough */
 import axios from 'axios'
 
+const SET_CART = "SET_CART"
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const DECREMENT_ITEM = 'DECREMENT_ITEM'
 const INCREMENT_ITEM = 'INCREMENT_ITEM'
+const CLEAR_CART = 'CLEAR_CART'
 
 const addToCart = (product, qty = 1) => {
   return {
@@ -34,8 +36,35 @@ const _incrementItemFromCart = (product) => {
   }
 }
 
+const _setCart = (cart) => {
+  return {
+    type: SET_CART,
+    cart
+  }
+}
+
+const _clearCart = () => {
+  return {
+    type: CLEAR_CART
+  }
+}
+
+export const clearCart = () => {
+  return async (dispatch) => {
+    dispatch(_clearCart())
+    localStorage.clear()
+  }
+}
+
+export const setCart = (cart, isLoggedIn) => {
+  return async (dispatch) => {
+    if(!isLoggedIn) {
+      dispatch(_setCart(cart))
+    }
+  }
+}
+
 export const addItemToCart = (product, isLoggedIn) => {
-  console.log(product)
   return async (dispatch, getState) => {
     if (!isLoggedIn) {
       dispatch(addToCart(product))
@@ -91,6 +120,13 @@ const initialCart = {
 
 export default function (state = initialCart, action) {
   switch (action.type) {
+    case CLEAR_CART: {
+      return {...state, cartItems: []}
+    }
+    case SET_CART: {
+      console.log(action.cart)
+      return {...state, ...action.cart}
+    }
     case ADD_TO_CART: {
       const existingItem = state.cartItems.find((item) => {
         return item.id === action.product.id
