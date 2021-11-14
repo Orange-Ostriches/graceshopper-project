@@ -1,5 +1,13 @@
 "use strict";
 
+const spaceshipNames = [
+  'Visage Station', 'Outlander', 'Epitome Base', 'Novis', 'Elyse Colony', 'Tartarus Colony', '  Aeris', 'Escort', 'Nott Terminal', 'Aether Terminal', 'Symbolica Station', 'Nox Terminal', 'Phoenix', 'Ecstasis Colony', 'Warden Terminal', 'Glory Station', 'Guardian Base', 'Hyperion Terminal', 'Heirloom', 'Neo', 'Illume Colony', 'Epitome Terminal', 'Mother Terminal', 'Janus', 'Athena Colony', 'Eir Station', 'Dawn', 'Ecstasis Base', 'Utopis Base', 'Pedigree Colony', 'Exposure Colony', 'Juno Colony', 'Chrono Terminal', 'Olympus', 'Hemera Base', 'Heirloom', 'Prometheus Terminal', 'Guardian Base', 'Angel Station', 'Borealis Colony', 'Azure Colony', 'Mythos Terminal', 'Phoenix Terminal', 'Illume Colony', 'Nebula Colony', 'Symbolica', 'Nox Terminal', 'Fauna Base', 'Lumina', 'Legacy Base', 'Hera Base', 'Saga', 'Novis Station', 'Outlander Base', 'Voyage Terminal', 'Daydream Base', 'Paradox', 'Vulcan Station', 'Chronos Base', 'Prism Colony', 'Ancestor Station', 'Athena Terminal', 'Omega Station', 'Awe', 'Orphan', 'Genesis Colony', 'Rogue Station', 'Terra Station', 'Empyrea Station', 'Terran Station', 'Orphan', 'Vulcan Station', 'Epitome', 'Curator Station', 'Hypnos', 'Nero Colony', 'Voyage Base', 'Gaia Colony', 'Eternity', 'Terminus', 'Apollo Colony', 'Miracle Colony', 'Empyrea', 'Dawn Base', 'Helios Colony', 'Saga Colony', 'Ender Station', 'Dawn Colony', 'Minerva Station', 'Marvel', 'Marvel Colony', 'Awe Base', 'Aeon Station', 'Amazone Station', 'Elysium', 'Voyage Terminal', 'Heritage Colony'
+];
+const fuelTypes = ['plutonium', 'uranium', 'hydrogen'];
+const sizes = ['small', 'medium', 'large'];
+const specialties = ['exploration', 'mining', 'combat', 'transportation'];
+const image = 'https://www.bungie.net/common/destiny2_content/screenshots/806017499.jpg';
+
 const {
   db,
   models: { Spaceship, User, Cart },
@@ -146,6 +154,21 @@ async function seed() {
     })
   );
 
+  await Promise.all(spaceshipNames.map(spaceshipName => (
+    Spaceship.create({
+      name: spaceshipName,
+      price: Math.ceil(Math.random() * 10) * 100,
+      fuelType: fuelTypes[Math.floor(Math.random() * 3)],
+      size: sizes[Math.floor(Math.random() * 3)],
+      range: Math.ceil(Math.random() * 10) * 100,
+      specialty: specialties[Math.floor(Math.random() * 4)],
+      topSpeed: Math.ceil(Math.random() * 10) * 100,
+      autopilot: Math.round(Math.random()) === 0,
+      description: "The greatest spaceship you've never owned.",
+      image
+    })
+  )));
+
   await Promise.all(
     users.map((user) => {
       return User.create(user);
@@ -159,7 +182,7 @@ async function seed() {
   );
 
   console.log(
-    `seeded ${spaceships.length} spaceships, ${users.length} users, and ${carts.length} carts`
+    `seeded ${spaceships.length + spaceshipNames.length} spaceships, ${users.length} users, and ${carts.length} carts`
   );
   console.log(`seeded successfully!`);
   // return {
