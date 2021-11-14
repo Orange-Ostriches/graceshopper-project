@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { fetchSingleProduct } from '../store/product'
+import { fetchSingleProduct } from '../store/singleProduct'
 import { deleteProduct } from "../store/products";
 import { connect } from 'react-redux'
 import { addItemToCart } from '../store/cart'
@@ -12,14 +12,13 @@ class SingleProduct extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this)
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleDelete = this.handleDelete.bind(this)
   }
+
   componentDidMount() {
       this.props.getSingleProduct(this.props.match.params.id);
-    } catch (error) {
-      console.error(error);
-    }
   }
+
 
   handleDelete(event) {
     let confirmation = confirm(
@@ -37,7 +36,7 @@ class SingleProduct extends React.Component {
     }
   }
 
-  handleClick = (event) => {
+  handleClick() {
     this.props.itemToCart(this.props.product, this.props.isLoggedIn)
     alert('Added to cart!')
   }

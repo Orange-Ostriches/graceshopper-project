@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { updateProduct } from "../store/product";
+import { updateProduct } from "../store/singleProduct";
 const ooName = "Orange Ostriches SpaceCo";
 
 const AdminEditProduct = () => {
