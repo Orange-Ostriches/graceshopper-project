@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { removeItemFromCart } from "../store/cart"
 
 class CartItem extends React.Component {
 
   render() {
     const { item } = this.props;
     return (
-      <div className="cart-item">
-        <ul className="cart-item-list">
+      <>
         <li className="item-name">
           <p>{item.name}</p>
         </li>
@@ -20,8 +20,8 @@ class CartItem extends React.Component {
         <li className="item-total">
           <p>Total: ${item.price * item.qty}</p>
         </li>
-        </ul>
-      </div>
+        <button className="remove-item" onClick={ () => this.props.removeItem(item, this.props.isLoggedIn) }>Remove</button>
+      </>
     )
   }
 }
@@ -33,5 +33,13 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeItem: (item) => {
+      dispatch(removeItemFromCart(item))
+    }
+  }
+}
 
-export default connect(mapStateToProps)(CartItem)
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem)

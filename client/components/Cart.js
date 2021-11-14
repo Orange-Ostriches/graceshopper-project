@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import CartItem from './CartItem'
-import { removeItemFromCart } from "../store/cart"
 
 class Cart extends React.Component {
   render() {
@@ -9,16 +8,17 @@ class Cart extends React.Component {
       return (
         <div className="list-of-items">
           <CartItem item={item} key={item.id} />
-          <button className="remove-item" onClick={ () => this.props.removeItem(item, this.props.isLoggedIn) }>Remove</button>
         </div>
       )
     })
     return (
       <div>
         <h1>Items in Cart</h1>
-        <ul>
-          {listOfItems}
-        </ul>
+        <div className="cart-item">
+          <ul className="cart-item-list">
+            {listOfItems}
+          </ul>
+          </div>
       </div>
     )
   }
@@ -31,12 +31,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    removeItem: (item) => {
-      dispatch(removeItemFromCart(item))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart)
+export default connect(mapStateToProps)(Cart)

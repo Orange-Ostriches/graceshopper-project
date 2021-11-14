@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom'
 import { fetchFeatProducts } from '../store/products';
 
 /**
@@ -37,11 +38,13 @@ export const Home = () => {
             <div id="carousel">
               {products.map(product => (
                 <div key={product.id} id="product">
+                  <Link to={`/products/${product.id}`}>
                   <img
                     className="prod-img"
                     src={product.image}
                     onClick={() => setMainProduct(product)}
                   />
+                  </Link>
                   <h3>{product.name}</h3>
                   <h4>Price: {product.price}</h4>
                 </div>
