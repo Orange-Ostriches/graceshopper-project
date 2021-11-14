@@ -26,10 +26,10 @@ export const Home = () => {
       <h3>Welcome, {username !== undefined ? username : "Guest"}!</h3>
       {
         Object.keys(mainProduct).length === 0 ? (
-          <h1 className="carousel-title">Loading...</h1>
+          <h1 className="title">Loading...</h1>
           ) : (
           <div className="main">
-            <h1 className="carousel-title">Featured Products</h1>
+            <h1 className="title">Featured Products</h1>
             <div id="carousel-main">
               <img id="main-prod-img" src={mainProduct.image} />
               <h2 id="main-prod-title">{mainProduct.name}</h2>
