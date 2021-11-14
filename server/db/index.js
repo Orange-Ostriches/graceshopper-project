@@ -7,7 +7,7 @@ const Spaceship = require("./models/Spaceship");
 const Cart = require("./models/Cart");
 
 User.hasMany(Cart);
-User.hasMany(Spaceship)
+User.hasMany(Spaceship);
 Cart.belongsTo(User);
 Cart.hasMany(Spaceship);
 Spaceship.belongsTo(Cart);

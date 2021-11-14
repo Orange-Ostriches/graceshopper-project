@@ -4,12 +4,24 @@ import { connect } from 'react-redux'
 class CartItem extends React.Component {
 
   render() {
-
+    const { item } = this.props;
     return (
-      <li>
-        <p>{this.props.item.name}</p>
-        <p>Quantity: {this.props.item.qty}</p>
-      </li>
+      <div className="cart-item">
+        <ul className="cart-item-list">
+        <li className="item-name">
+          <p>{item.name}</p>
+        </li>
+        <li className="item-qty">
+          <p>Quantity: {item.qty}</p>
+        </li>
+        <li className="item-price">
+          <p>Price: ${item.price}</p>
+        </li>
+        <li className="item-total">
+          <p>Total: ${item.price * item.qty}</p>
+        </li>
+        </ul>
+      </div>
     )
   }
 }

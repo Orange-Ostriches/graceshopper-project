@@ -1,6 +1,7 @@
 import React, { Component, useEffect, useState } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../store/products';
+import { Link } from 'react-router-dom';
 
 export const AllProducts = () => {
 
@@ -8,23 +9,25 @@ export const AllProducts = () => {
 
   return (
     <div id="all-products">
-        <div id="products">
-          {products.map(product => (
-            <div key={product.id} id="product">
+      <div id="products">
+        {products.map(product => (
+          <div key={product.id} id="product">
+            <Link to={`/products/${product.id}`}>
               <img width="200px" src={product.image} />
-              <h1>{product.name}</h1>
-              <h3>Price: {product.price}</h3>
-              <h4>Fuel Type: {product.fuelType}</h4>
-              <h4>Size: {product.size}</h4>
-              <h4>Range: {product.range}</h4>
-              <h4>Specialty: {product.specialty}</h4>
-              <h4>Top Speed: {product.topSpeed} lyph</h4>
-              <h4>Autopilot? {product.autopilot ? "Yes" : "No"}</h4>
-              <p>Description: {product.description}</p>
-            </div>
-          ))}
-        </div>
+            </Link>
+            <h1>{product.name}</h1>
+            <h3>Price: {product.price}</h3>
+            <h4>Fuel Type: {product.fuelType}</h4>
+            <h4>Size: {product.size}</h4>
+            <h4>Range: {product.range}</h4>
+            <h4>Specialty: {product.specialty}</h4>
+            <h4>Top Speed: {product.topSpeed} lyph</h4>
+            <h4>Autopilot? {product.autopilot ? "Yes" : "No"}</h4>
+            <p>Description: {product.description}</p>
+          </div>
+        ))}
       </div>
+    </div>
   )
 }
 

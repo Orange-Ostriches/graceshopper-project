@@ -16,9 +16,6 @@ export const Home = () => {
     };
     run();
   }, [])
-
-  console.log('USER', username);
-  console.log('PRODUCTS', products);
   return (
     <div>
       <h3>Welcome, {username !== undefined ? username : "Guest"}!</h3>

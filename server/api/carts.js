@@ -19,19 +19,15 @@ router.put("/", async (req, res, next) => {
   // localStorage.setItem('cart', { cart object })
   // just store locally for guest user
 
-  try {
-    // here I can check for an existing cart in localStorage
-      // if cart in localStorage, then don't create a new cart
-    const cart = await Cart.findOrCreate();
-    // console.log(Object.keys(cart.__proto__))
-
-    // if cart exists
-      // then findOrCreate a cart
-      // {where: not checked out}
-
-    await cart.addSpaceship(product.id)
-    res.send(cart);
-  } catch (error) {
-    next(error);
-  }
-})
+  // PUT /api/carts/:id
+  router.put("/:id", async (req, res, next) => {
+    try {
+      const cart = await Cart.findOrCreate();
+      // console.log(Object.keys(cart.__proto__))
+      await cart.addSpaceship(product.id)
+      res.send(cart);
+    } catch (error) {
+      next(error);
+    }
+  });
+});
