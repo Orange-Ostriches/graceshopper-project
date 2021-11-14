@@ -14,18 +14,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get('/featured', async (req, res, next) => {
-  try {
-    const featSpaceships = await Spaceship.findAll({
-      order: [Sequelize.literal('random()')],
-      limit: 5
-    })
-    res.json(featSpaceships)
-  } catch (error) {
-    console.log(error)
-  }
-})
-
 router.get("/:id", async (req, res, next) => {
   try {
     const spaceship = await Spaceship.findByPk(req.params.id);

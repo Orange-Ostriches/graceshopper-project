@@ -11,6 +11,7 @@ class SingleProduct extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
+    try {
       this.props.getSingleProduct(this.props.match.params.id);
     } catch (error) {
       console.error(error);
@@ -46,7 +47,7 @@ class SingleProduct extends React.Component {
         </div>
         <div className="single-product-container">
           <div className="single-product-image">
-            <img width="400px" src={product.image} alt={product.name} />
+            <img src={product.image} alt={product.name} />
           </div>
           <div className="single-product-info">
             <h2>{product.name}</h2>
