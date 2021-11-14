@@ -60,6 +60,11 @@ const users = [
     username: "goodguygary",
     password: "notasnail123",
   },
+  {
+    username: "adMan",
+    password: "theAdmin",
+    isAdmin: true,
+  },
 ];
 
 const carts = [
