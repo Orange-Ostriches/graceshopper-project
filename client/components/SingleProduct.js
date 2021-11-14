@@ -1,23 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { fetchSingleProduct } from '../store/product'
+import { deleteProduct } from "../store/products";
 import { connect } from 'react-redux'
 import { addItemToCart } from '../store/cart'
 
-class SingleProduct extends React.Component {
-  constructor() {
-    super()
-    this.handleClick = this.handleClick.bind(this)
-import React from "react";
-import { Link } from "react-router-dom";
-import { fetchSingleProduct } from "../store/product";
-import { deleteProduct } from "../store/products";
-import { connect } from "react-redux";
+
 const ooName = "Orange Ostriches SpaceCo";
 
 class SingleProduct extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this)
     this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
@@ -68,7 +62,6 @@ class SingleProduct extends React.Component {
             <h2>{product.name}</h2>
             <h3>Price: ${product.price}</h3>
             <p>Description: {product.description}</p>
-            <button className="add-to-cart" onClick={this.handleClick}>Add To Cart</button>
             <p>
               Size:
               <select>
@@ -90,7 +83,7 @@ class SingleProduct extends React.Component {
                 </Link>
               </div>
             ) : (
-              <button className="add-to-cart">Add To Cart</button>
+              <button className="add-to-cart" onClick={this.handleClick}>Add To Cart</button>
             )}
           </div>
         </div>
