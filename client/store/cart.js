@@ -1,8 +1,10 @@
+/* eslint-disable no-fallthrough */
 import axios from 'axios'
 
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const DECREMENT_ITEM = 'DECREMENT_ITEM'
+const INCREMENT_ITEM = 'INCREMENT_ITEM'
 
 const addToCart = (product, qty = 1) => {
   return {
@@ -21,6 +23,13 @@ const _deleteFromCart = (product) => {
 const _decrementItemFromCart = (product) => {
   return {
     type: DECREMENT_ITEM,
+    product
+  }
+}
+
+const _incrementItemFromCart = (product) => {
+  return {
+    type: INCREMENT_ITEM,
     product
   }
 }
@@ -53,6 +62,19 @@ export const decrementItemFromCart = (product, isLoggedIn) => {
     try {
       if (!isLoggedIn) {
         dispatch(_decrementItemFromCart(product))
+        localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const incrementItemFromCart = (product, isLoggedIn) => {
+  return async (dispatch, getState) => {
+    try {
+      if (!isLoggedIn) {
+        dispatch(_incrementItemFromCart(product))
         localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
       }
     } catch (error) {
@@ -113,6 +135,20 @@ export default function (state = initialCart, action) {
       return {
         ...state,
         cartItems: state.cartItems.filter(item => item.id !== action.product.id)
+      }
+    }
+
+    case INCREMENT_ITEM: {
+      const existingItem = state.cartItems.find((item) => {
+        return item.id === action.product.id
+      })
+      if (existingItem) {
+        action.product.qty += 1
+        return {
+          ...state, cartItems: state.cartItems.map((item) => {
+            return item === existingItem ? action.product : item
+          })
+        }
       }
     }
 

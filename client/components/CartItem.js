@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { decrementItemFromCart, deleteFromCart } from "../store/cart"
+import { decrementItemFromCart, deleteFromCart, incrementItemFromCart } from "../store/cart"
 
 class CartItem extends React.Component {
 
@@ -20,7 +20,7 @@ class CartItem extends React.Component {
         <li className="item-total">
           <p>Total: ${item.price * item.qty}</p>
         </li>
-        
+
         <button
         className="decrement-item"
         onClick={ () => this.props.decrementItem(item, this.props.isLoggedIn)
@@ -33,6 +33,13 @@ class CartItem extends React.Component {
         onClick={() => this.props.removeItem(item)}
         >
         Remove From Cart
+        </button>
+
+        <button
+        className="increment-item"
+        onClick={() => this.props.incrementItem(item)}
+        >
+        +
         </button>
 
       </>
@@ -54,6 +61,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     removeItem: (item) => {
       dispatch(deleteFromCart(item))
+    },
+    incrementItem: (item) => {
+      dispatch(incrementItemFromCart(item))
     }
   }
 }

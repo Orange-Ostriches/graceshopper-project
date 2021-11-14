@@ -38,7 +38,6 @@ class SingleProduct extends React.Component {
 
   handleClick() {
     this.props.itemToCart(this.props.product, this.props.isLoggedIn)
-    alert('Added to cart!')
   }
 
   render() {
