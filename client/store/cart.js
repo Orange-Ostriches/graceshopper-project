@@ -1,31 +1,42 @@
 import axios from 'axios'
 
 const ADD_TO_CART = 'ADD_TO_CART'
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
-const addToCart = (product, qty = 1 ) => {
+const addToCart = (product, qty = 1) => {
   return {
     type: ADD_TO_CART,
-    product: {...product, qty}
+    product: { ...product, qty }
+  }
+}
+
+const deleteFromCart = (product) => {
+  return {
+    type: REMOVE_FROM_CART,
+    product
   }
 }
 
 export const addItemToCart = (product, isLoggedIn) => {
+  console.log(product)
   return async (dispatch, getState) => {
-    if(!isLoggedIn) {
+    if (!isLoggedIn) {
       dispatch(addToCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
     }
-    // else {
-    //   try {
-    //     // or check localStorage
-    //     const res = await axios.put(`/api/carts`, product )
-    //     const addedProduct = res.data
-    //     console.log('THUNK', addedProduct)
-    //     dispatch(addToCart(addedProduct))
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
+  }
+}
+
+export const removeItemFromCart = (product, isLoggedIn) => {
+  return async (dispatch, getState) => {
+    try {
+      if (!isLoggedIn) {
+        dispatch(deleteFromCart(product))
+        localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
@@ -40,33 +51,44 @@ const initialCart = {
 export default function (state = initialCart, action) {
   switch (action.type) {
     case ADD_TO_CART:
-
       const existingItem = state.cartItems.find((item) => {
-        return item.id === action.product.id})
-
-      if(existingItem) {
-
+        return item.id === action.product.id
+      })
+      if (existingItem) {
         action.product.qty += existingItem['qty']
-
         return {
           ...state,
           cartItems: state.cartItems.map((item) => {
             return item === existingItem ? action.product : item
           })
-          }
         }
-
+      }
       else {
         return {
           ...state,
           cartItems: [...state.cartItems, action.product]
         }
       }
-
-      default:
-        return state
-    }
-
-
+    case REMOVE_FROM_CART:
+      const existingItem2 = state.cartItems.find((item) => {
+        return item.id === action.product.id
+      })
+      if (existingItem2) {
+        action.product.qty -= 1
+        if (action.product.qty < 1) {
+          return {
+            ...state, cartItems: state.cartItems.filter(item => item.id !== action.product.id)
+          }
+        } else {
+          return {
+            ...state, cartItems: state.cartItems.map((item) => {
+              return item === existingItem2 ? action.product : item
+            })
+          }
+        }
+      }
+    default:
+      return state
+  }
 }
 
