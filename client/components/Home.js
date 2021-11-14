@@ -8,7 +8,7 @@ import { fetchFeatProducts } from '../store/products';
  */
 export const Home = () => {
 
-  const { auth: {username}, products } = useSelector(state => state);
+  const { auth: { username }, products } = useSelector(state => state);
   const [mainProduct, setMainProduct] = useState({});
   const dispatch = useDispatch();
 
@@ -28,23 +28,23 @@ export const Home = () => {
       {
         Object.keys(mainProduct).length === 0 ? (
           <h1 className="title">Loading...</h1>
-          ) : (
+        ) : (
           <div className="main">
             <h1 className="title">Featured Products</h1>
             <div id="carousel-main">
-              <img id="main-prod-img" src={mainProduct.image} />
+              <Link to={`/products/${mainProduct.id}`}>
+                <img id="main-prod-img" src={mainProduct.image} />
+              </Link>
               <h2 id="main-prod-title">{mainProduct.name}</h2>
             </div>
             <div id="carousel">
               {products.map(product => (
                 <div key={product.id} id="product">
-                  <Link to={`/products/${product.id}`}>
-                  <img
-                    className="prod-img"
-                    src={product.image}
-                    onClick={() => setMainProduct(product)}
-                  />
-                  </Link>
+                    <img
+                      className="prod-img"
+                      src={product.image}
+                      onClick={() => setMainProduct(product)}
+                    />
                   <h3>{product.name}</h3>
                   <h4>Price: {product.price}</h4>
                 </div>
