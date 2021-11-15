@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const Sequelize = require("sequelize")
 const {
   models: { Spaceship, User },
 } = require("../db");

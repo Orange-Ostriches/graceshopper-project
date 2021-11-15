@@ -4,7 +4,6 @@ import axios from "axios";
 // Action Types
 const SET_PRODUCTS = 'SET_PRODUCTS';
 const FEAT_PRODUCTS = 'FEAT_PRODUCTS';
-const SET_PRODUCTS = "SET_PRODUCTS";
 const DELETE_PRODUCT = "DELETE_PRODUCT";
 
 // Action Creators
