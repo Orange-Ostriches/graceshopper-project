@@ -15,16 +15,16 @@ const Spaceship = db.define('spaceship', {
   },
   fuelType: {
     type: Sequelize.STRING,
-    defaultValue: 'solar',
+    defaultValue: 'Plutonium',
     validate: {
-      isIn: [['plutonium', 'uranium', 'hydrogen']]
+      isIn: [['Plutonium', 'Uranium', 'Hydrogen']]
     }
   },
   size: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isIn: [['small', 'medium', 'large']]
+      isIn: [['Small', 'Medium', 'Large']]
     }
   },
   range: {
@@ -35,7 +35,7 @@ const Spaceship = db.define('spaceship', {
     type: Sequelize.STRING,
     allowNull: true,
     validate: {
-      isIn: [['exploration', 'mining', 'combat', 'transportation']]
+      isIn: [['Exploration', 'Mining', 'Combat', 'Transportation']]
     }
   },
   topSpeed: {

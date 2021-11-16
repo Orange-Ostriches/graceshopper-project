@@ -3,9 +3,9 @@
 const spaceshipNames = [
   'Visage Station', 'Outlander', 'Epitome Base', 'Novis', 'Elyse Colony', 'Tartarus Colony', '  Aeris', 'Escort', 'Nott Terminal', 'Aether Terminal', 'Symbolica Station', 'Nox Terminal', 'Phoenix', 'Ecstasis Colony', 'Warden Terminal', 'Glory Station', 'Guardian Base', 'Hyperion Terminal', 'Heirloom', 'Neo', 'Illume Colony', 'Epitome Terminal', 'Mother Terminal', 'Janus', 'Athena Colony', 'Eir Station', 'Dawn', 'Ecstasis Base', 'Utopis Base', 'Pedigree Colony', 'Exposure Colony', 'Juno Colony', 'Chrono Terminal', 'Olympus', 'Hemera Base', 'Heirloom', 'Prometheus Terminal', 'Guardian Base', 'Angel Station', 'Borealis Colony', 'Azure Colony', 'Mythos Terminal', 'Phoenix Terminal', 'Illume Colony', 'Nebula Colony', 'Symbolica', 'Nox Terminal', 'Fauna Base', 'Lumina', 'Legacy Base', 'Hera Base', 'Saga', 'Novis Station', 'Outlander Base', 'Voyage Terminal', 'Daydream Base', 'Paradox', 'Vulcan Station', 'Chronos Base', 'Prism Colony', 'Ancestor Station', 'Athena Terminal', 'Omega Station', 'Awe', 'Orphan', 'Genesis Colony', 'Rogue Station', 'Terra Station', 'Empyrea Station', 'Terran Station', 'Orphan', 'Vulcan Station', 'Epitome', 'Curator Station', 'Hypnos', 'Nero Colony', 'Voyage Base', 'Gaia Colony', 'Eternity', 'Terminus', 'Apollo Colony', 'Miracle Colony', 'Empyrea', 'Dawn Base', 'Helios Colony', 'Saga Colony', 'Ender Station', 'Dawn Colony', 'Minerva Station', 'Marvel', 'Marvel Colony', 'Awe Base', 'Aeon Station', 'Amazone Station', 'Elysium', 'Voyage Terminal', 'Heritage Colony'
 ];
-const fuelTypes = ['plutonium', 'uranium', 'hydrogen'];
-const sizes = ['small', 'medium', 'large'];
-const specialties = ['exploration', 'mining', 'combat', 'transportation'];
+const fuelTypes = ['Plutonium', 'Uranium', 'Hydrogen'];
+const sizes = ['Small', 'Medium', 'Large'];
+const specialties = ['Exploration', 'Mining', 'Combat', 'Transportation'];
 const image = 'https://www.bungie.net/common/destiny2_content/screenshots/806017499.jpg';
 
 const {
@@ -17,10 +17,10 @@ const spaceships = [
   {
     name: "WarpTrace 9000",
     price: 175,
-    fuelType: "uranium",
-    size: "medium",
+    fuelType: "Uranium",
+    size: "Medium",
     range: 1500,
-    specialty: "transportation",
+    specialty: "Transportation",
     topSpeed: 300,
     autopilot: true,
     description:
@@ -29,10 +29,10 @@ const spaceships = [
   {
     name: "GigaBlaster Mk7",
     price: 400,
-    fuelType: "hydrogen",
-    size: "large",
+    fuelType: "Hydrogen",
+    size: "Large",
     range: 1000,
-    specialty: "combat",
+    specialty: "Combat",
     topSpeed: 420,
     autopilot: false,
     description: "If you have enemies that need blastin', look no further.",
@@ -42,10 +42,10 @@ const spaceships = [
   {
     name: "Driller",
     price: 250,
-    fuelType: "plutonium",
-    size: "large",
+    fuelType: "Plutonium",
+    size: "Large",
     range: 2500,
-    specialty: "transportation",
+    specialty: "Transportation",
     topSpeed: 100,
     autopilot: true,
     description:
@@ -81,10 +81,10 @@ const carts = [
       {
         name: "Driller",
         price: 250,
-        fuelType: "plutonium",
-        size: "large",
+        fuelType: "Plutonium",
+        size: "Large",
         range: 2500,
-        specialty: "transportation",
+        specialty: "Transportation",
         topSpeed: 100,
         autopilot: true,
         description:
@@ -95,10 +95,10 @@ const carts = [
       {
         name: "GigaBlaster Mk7",
         price: 400,
-        fuelType: "hydrogen",
-        size: "large",
+        fuelType: "Hydrogen",
+        size: "Large",
         range: 1000,
-        specialty: "combat",
+        specialty: "Combat",
         topSpeed: 420,
         autopilot: false,
         description: "If you have enemies that need blastin', look no further.",
@@ -119,10 +119,10 @@ const carts = [
       {
         name: "WarpTrace 9000",
         price: 175,
-        fuelType: "uranium",
-        size: "medium",
+        fuelType: "Uranium",
+        size: "Medium",
         range: 1500,
-        specialty: "transportation",
+        specialty: "Transportation",
         topSpeed: 300,
         autopilot: true,
         description:
@@ -160,9 +160,9 @@ async function seed() {
       price: Math.ceil(Math.random() * 10) * 100,
       fuelType: fuelTypes[Math.floor(Math.random() * 3)],
       size: sizes[Math.floor(Math.random() * 3)],
-      range: Math.ceil(Math.random() * 10) * 100,
+      range: Math.ceil(Math.random() * 10) * 250,
       specialty: specialties[Math.floor(Math.random() * 4)],
-      topSpeed: Math.ceil(Math.random() * 10) * 100,
+      topSpeed: Math.ceil(Math.random() * 10) * 50,
       autopilot: Math.round(Math.random()) === 0,
       description: "The greatest spaceship you've never owned.",
       image
