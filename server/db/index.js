@@ -13,6 +13,7 @@ Cart.belongsToMany(Spaceship, { through: CartSpaceship });
 Spaceship.belongsToMany(Cart, { through: CartSpaceship });
 
 
+
 module.exports = {
   db,
   models: {

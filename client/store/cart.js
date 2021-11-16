@@ -8,10 +8,10 @@ const DECREMENT_ITEM = 'DECREMENT_ITEM'
 const INCREMENT_ITEM = 'INCREMENT_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
 
-const addToCart = (product, qty = 1) => {
+const addToCart = (product, itemQty = 1) => {
   return {
     type: ADD_TO_CART,
-    product: { ...product, qty }
+    product: { ...product, itemQty }
   }
 }
 
@@ -49,15 +49,20 @@ const _clearCart = () => {
   }
 }
 
-export const clearCart = () => {
+export const clearCart = (isLoggedIn, cart) => {
   return async (dispatch) => {
-    dispatch(_clearCart())
-    localStorage.clear()
+    if(!isLoggedIn) {
+      console.log(cart)
+      const { data } = await axios.post("/api/carts/guest-checkout", cart)
+      console.log(data)
+      // dispatch(_clearCart())
+      // localStorage.clear()
+    }
   }
 }
 
 export const setCart = (cart, isLoggedIn) => {
-  return async (dispatch) => {
+  return (dispatch) => {
     if(!isLoggedIn) {
       dispatch(_setCart(cart))
     }
@@ -65,7 +70,7 @@ export const setCart = (cart, isLoggedIn) => {
 }
 
 export const addItemToCart = (product, isLoggedIn) => {
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
     if (!isLoggedIn) {
       dispatch(addToCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
@@ -74,7 +79,7 @@ export const addItemToCart = (product, isLoggedIn) => {
 }
 
 export const deleteFromCart = (product, isLoggedIn) => {
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
     try {
       if (!isLoggedIn) {
         dispatch(_deleteFromCart(product))
@@ -87,7 +92,7 @@ export const deleteFromCart = (product, isLoggedIn) => {
 }
 
 export const decrementItemFromCart = (product, isLoggedIn) => {
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
     try {
       if (!isLoggedIn) {
         dispatch(_decrementItemFromCart(product))
@@ -100,7 +105,7 @@ export const decrementItemFromCart = (product, isLoggedIn) => {
 }
 
 export const incrementItemFromCart = (product, isLoggedIn) => {
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
     try {
       if (!isLoggedIn) {
         dispatch(_incrementItemFromCart(product))
@@ -132,7 +137,7 @@ export default function (state = initialCart, action) {
         return item.id === action.product.id
       })
       if (existingItem) {
-        action.product.qty += existingItem['qty']
+        action.product.itemQty += existingItem.itemQty
         return {
           ...state,
           cartItems: state.cartItems.map((item) => {
@@ -152,8 +157,8 @@ export default function (state = initialCart, action) {
         return item.id === action.product.id
       })
       if (existingItem) {
-        action.product.qty -= 1
-        if (action.product.qty < 1) {
+        action.product.itemQty -= 1
+        if (action.product.itemQty < 1) {
           return {
             ...state,
             cartItems: state.cartItems.filter(item => item.id !== action.product.id)
@@ -179,7 +184,7 @@ export default function (state = initialCart, action) {
         return item.id === action.product.id
       })
       if (existingItem) {
-        action.product.qty += 1
+        action.product.itemQty += 1
         return {
           ...state, cartItems: state.cartItems.map((item) => {
             return item === existingItem ? action.product : item

@@ -11,7 +11,7 @@ class Cart extends React.Component {
   }
 
   handleCheckout() {
-    this.props.clearCart()
+    this.props.clearCart(this.props.isLoggedIn, this.props.cart)
   }
 
   render() {
@@ -69,7 +69,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setCart: (cart) => dispatch(setCart(cart)),
-    clearCart: () => dispatch(clearCart())
+    clearCart: (isLoggedIn, cart) => dispatch(clearCart(isLoggedIn, cart))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
