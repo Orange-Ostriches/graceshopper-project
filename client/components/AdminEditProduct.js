@@ -5,7 +5,7 @@ import { updateProduct } from "../store/singleProduct";
 const ooName = "Orange Ostriches SpaceCo";
 
 const AdminEditProduct = () => {
-  const { product } = useSelector((state) => state);
+  const { product, auth } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const [state, setState] = useState({
@@ -35,134 +35,143 @@ const AdminEditProduct = () => {
     }
   };
 
-  return (
-    <div>
-      <Link to={`/products/${product.id}`}>
-        <button>Cancel Editing</button>
-      </Link>
-      <h3>Editing {product.name}:</h3>
-      <form id="edit-product" onSubmit={handleSubmit}>
-        <label htmlFor="name">Product Name: </label>
-        <input
-          name="name"
-          value={state.name}
-          onChange={handleChange}
-          placeholder={state.name}
-        />
-        <br />
+  if (auth.isAdmin === true) {
+    return (
+      <div className="content">
+        <Link to={`/products/${product.id}`}>
+          <button>Cancel Editing</button>
+        </Link>
+        <h3>Editing {product.name}:</h3>
+        <form id="edit-product" onSubmit={handleSubmit}>
+          <label htmlFor="name">Product Name: </label>
+          <input
+            name="name"
+            value={state.name}
+            onChange={handleChange}
+            placeholder={state.name}
+          />
+          <br />
 
-        <label htmlFor="image">Product Image: </label>
-        <input
-          name="image"
-          value={state.image}
-          onChange={handleChange}
-          placeholder={state.image}
-        />
-        <br />
+          <label htmlFor="image">Product Image: </label>
+          <input
+            name="image"
+            value={state.image}
+            onChange={handleChange}
+            placeholder={state.image}
+          />
+          <br />
 
-        <label htmlFor="price">Product Price: </label>
-        <input
-          name="price"
-          value={state.price}
-          onChange={handleChange}
-          placeholder={state.price}
-        />
-        <br />
+          <label htmlFor="price">Product Price: </label>
+          <input
+            name="price"
+            value={state.price}
+            onChange={handleChange}
+            placeholder={state.price}
+          />
+          <br />
 
-        <label htmlFor="description">Product Description: </label>
-        <input
-          name="description"
-          value={state.description}
-          onChange={handleChange}
-          placeholder={state.description}
-        />
-        <br />
+          <label htmlFor="description">Product Description: </label>
+          <input
+            name="description"
+            value={state.description}
+            onChange={handleChange}
+            placeholder={state.description}
+          />
+          <br />
 
-        <label htmlFor="size">Product Size: </label>
-        <select name="size" onChange={handleChange} placeholder={state.size}>
-          <option value="small">Small</option>
-          <option value="medium">Medium</option>
-          <option value="large">Large</option>
-        </select>
-        <br />
+          <label htmlFor="size">Product Size: </label>
+          <select name="size" onChange={handleChange} placeholder={state.size}>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+          <br />
 
-        <label htmlFor="fuelType">Product Fuel Type: </label>
-        <select
-          name="fuelType"
-          onChange={handleChange}
-          placeholder={state.fuelType}
-        >
-          <option value="plutonium">Plutonium</option>
-          <option value="uranium">Uranium</option>
-          <option value="hydrogen">Hydrogen</option>
-        </select>
-        <br />
+          <label htmlFor="fuelType">Product Fuel Type: </label>
+          <select
+            name="fuelType"
+            onChange={handleChange}
+            placeholder={state.fuelType}
+          >
+            <option value="plutonium">Plutonium</option>
+            <option value="uranium">Uranium</option>
+            <option value="hydrogen">Hydrogen</option>
+          </select>
+          <br />
 
-        <label htmlFor="range">Product Range (in ly): </label>
-        <input
-          name="range"
-          value={state.range}
-          onChange={handleChange}
-          placeholder={state.range}
-        />
-        <br />
+          <label htmlFor="range">Product Range (in ly): </label>
+          <input
+            name="range"
+            value={state.range}
+            onChange={handleChange}
+            placeholder={state.range}
+          />
+          <br />
 
-        <label htmlFor="specialty">Product Specialty: </label>
-        <select
-          name="specialty"
-          onChange={handleChange}
-          placeholder={state.specialty}
-        >
-          <option value="exploration">Exploration</option>
-          <option value="mining">Mining</option>
-          <option value="combat">Combat</option>
-          <option value="transportation">Transportation</option>
-        </select>
-        <br />
+          <label htmlFor="specialty">Product Specialty: </label>
+          <select
+            name="specialty"
+            onChange={handleChange}
+            placeholder={state.specialty}
+          >
+            <option value="exploration">Exploration</option>
+            <option value="mining">Mining</option>
+            <option value="combat">Combat</option>
+            <option value="transportation">Transportation</option>
+          </select>
+          <br />
 
-        <label htmlFor="topSpeed">Product Top Speed (in ly/h): </label>
-        <input
-          name="topSpeed"
-          value={state.topSpeed}
-          onChange={handleChange}
-          placeholder={state.topSpeed}
-        />
-        <br />
+          <label htmlFor="topSpeed">Product Top Speed (in ly/h): </label>
+          <input
+            name="topSpeed"
+            value={state.topSpeed}
+            onChange={handleChange}
+            placeholder={state.topSpeed}
+          />
+          <br />
 
-        <label htmlFor="autopilot">Product Autopilot: </label>
-        <select
-          name="autopilot"
-          onChange={handleChange}
-          placeholder={state.autopilot ? "Yes" : "No"}
-        >
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
-        <br />
-        <button type="submit">Submit Product Changes</button>
-      </form>
-      <hr />
-      <div className="editor-current-product">
-        <h5>Current Product:</h5>
-        <div className="single-product-container">
-          <div className="single-product-image">
-            <img width="400px" src={product.image} alt={product.name} />
-          </div>
-          <div className="single-product-info">
-            <h2>{product.name}</h2>
-            <h3>Price: ${product.price}</h3>
-            <h4>Description: {product.description}</h4>
-            <h4>Size: {product.size}</h4>
-            <h4>Fuel Type: {product.fuelType}</h4>
-            <h4>Range: {product.range} ly</h4>
-            <h4>Specialty: {product.specialty}</h4>
-            <h4>Top Speed: {product.topSpeed} ly/h</h4>
-            <h4>Autopilot: {product.autopilot ? "Yes" : "No"}</h4>
+          <label htmlFor="autopilot">Product Autopilot: </label>
+          <select
+            name="autopilot"
+            onChange={handleChange}
+            placeholder={state.autopilot ? "Yes" : "No"}
+          >
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+          <br />
+          <button type="submit">Submit Product Changes</button>
+        </form>
+        <hr />
+        <div className="editor-current-product">
+          <h5>Current Product:</h5>
+          <div className="single-product-container">
+            <div className="single-product-image">
+              <img width="400px" src={product.image} alt={product.name} />
+            </div>
+            <div className="single-product-info">
+              <h2>{product.name}</h2>
+              <h3>Price: ${product.price}</h3>
+              <h4>Description: {product.description}</h4>
+              <h4>Size: {product.size}</h4>
+              <h4>Fuel Type: {product.fuelType}</h4>
+              <h4>Range: {product.range} ly</h4>
+              <h4>Specialty: {product.specialty}</h4>
+              <h4>Top Speed: {product.topSpeed} ly/h</h4>
+              <h4>Autopilot: {product.autopilot ? "Yes" : "No"}</h4>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    <div className="content">
+      <h3>You are not authorized to access this content.</h3>
+      <Link to="/">
+        <button>Return to the home page</button>
+      </Link>
+    </div>;
+  }
 };
 
 export default AdminEditProduct;

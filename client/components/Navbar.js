@@ -2,43 +2,73 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// document.addEventListener("scroll", (event) => {
+//   console.log(`scrollTop: ${window.document.scrollTop}`);
+// });
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
-  <div>
-    <div id='logo-name'>
-      <img id='logo' src='/images/logo.png' />
-      <h1>Orange Ostriches SpaceCo</h1>
-    </div>
-    <nav>
+  <nav className="navbar">
+    <div>
       {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/">Home</Link>
-          <Link to="/products">All Products</Link>
-          {isAdmin ? (
-            <Link to="/admin-portal" className="account-links">
-              Admin Portal
+        <div className="navbar-nav">
+          <div className="nav-left">
+            {/* The navbar will show these links after you log in */}
+            <Link to="/" className="nav-link">
+              <img id="logo" src="/images/logo.png" />
+              <span className="link-text">Home</span>
             </Link>
-          ) : null}
-          <a className="account-links" href="#" onClick={handleClick}>
-            Logout
-          </a>
+            <Link to="/products" className="nav-link">
+              <FontAwesomeIcon icon={["fad", "rocket-launch"]} />
+              <span className="link-text">Products</span>
+            </Link>
+          </div>
+          <div className="nav-right">
+            {isAdmin ? (
+              <Link to="/admin-portal" className="nav-link">
+                <FontAwesomeIcon icon={["fad", "solar-system"]} />
+                <span className="link-text">Admin Portal</span>
+              </Link>
+            ) : (
+              <Link to="/cart" className="nav-link">
+                <FontAwesomeIcon icon={["fad", "shopping-cart"]} />
+                <span className="link-text">Cart</span>
+              </Link>
+            )}
+            <a className="nav-link" href="#" onClick={handleClick}>
+              <FontAwesomeIcon icon={["fad", "sign-out"]} />
+              <span className="link-text">Logout</span>
+            </a>
+          </div>
         </div>
       ) : (
-        <div>
+        <div className="navbar-nav">
           {/* The navbar will show these links before you log in */}
-          <Link to="/">Home</Link>
-          <Link to="/products">All Products</Link>
-          <Link to="/cart">Cart</Link>
-          <div className="account-links">
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
+          <div className="nav-left">
+            <Link to="/" className="nav-link">
+              <img id="logo" src="/images/logo.png" />
+              <span className="link-text">Home</span>
+            </Link>
+            <Link to="/products" className="nav-link">
+              <FontAwesomeIcon icon={["fad", "rocket-launch"]} />
+              <span className="link-text">Products</span>
+            </Link>
+          </div>
+          <div className="nav-right">
+            <Link to="/cart" className="nav-link">
+              <FontAwesomeIcon icon={["fad", "shopping-cart"]} />
+              <span className="link-text">Cart</span>
+            </Link>
+            <Link to="/login" className="nav-link">
+              <FontAwesomeIcon icon={["fad", "user-astronaut"]} />
+              <span className="link-text">Login</span>
+            </Link>
           </div>
         </div>
       )}
-    </nav>
-    <hr />
-  </div>
+    </div>
+  </nav>
 );
 
 /**

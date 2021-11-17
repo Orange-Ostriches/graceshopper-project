@@ -45,7 +45,7 @@ const AdminCreateProduct = () => {
   };
 
   return (
-    <div>
+    <div className="content">
       <Link to={`/admin-products`}>
         <button>Cancel Creating</button>
       </Link>

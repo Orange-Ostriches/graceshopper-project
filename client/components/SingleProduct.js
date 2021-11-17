@@ -1,24 +1,22 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { fetchSingleProduct } from '../store/singleProduct'
+import React from "react";
+import { Link } from "react-router-dom";
+import { fetchSingleProduct } from "../store/singleProduct";
 import { deleteProduct } from "../store/products";
-import { connect } from 'react-redux'
-import { addItemToCart } from '../store/cart'
-
+import { connect } from "react-redux";
+import { addItemToCart } from "../store/cart";
 
 const ooName = "Orange Ostriches SpaceCo";
 
 class SingleProduct extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
+    this.handleClick = this.handleClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
-      this.props.getSingleProduct(this.props.match.params.id);
+    this.props.getSingleProduct(this.props.match.params.id);
   }
-
 
   handleDelete(event) {
     let confirmation = confirm(
@@ -37,13 +35,13 @@ class SingleProduct extends React.Component {
   }
 
   handleClick() {
-    this.props.itemToCart(this.props.product, this.props.isLoggedIn)
+    this.props.itemToCart(this.props.product, this.props.isLoggedIn);
   }
 
   render() {
     const { product, isAdmin } = this.props;
     return (
-      <div>
+      <div className="content">
         <div className="back-to-home">
           {isAdmin ? (
             <Link to="/admin-products">Back to Admin Product Portal</Link>
@@ -80,7 +78,9 @@ class SingleProduct extends React.Component {
                 </Link>
               </div>
             ) : (
-              <button className="add-to-cart" onClick={this.handleClick}>Add To Cart</button>
+              <button className="add-to-cart" onClick={this.handleClick}>
+                Add To Cart
+              </button>
             )}
           </div>
         </div>
@@ -94,16 +94,16 @@ const mapStateToProps = (state) => {
     product: state.product,
     cart: state.cart,
     isLoggedIn: !!state.auth.id,
-    isAdmin: state.auth.isAdmin
-  }
-}
+    isAdmin: state.auth.isAdmin,
+  };
+};
 
 const dispatchToProps = (dispatch) => {
   return {
     getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
     itemToCart: (item) => dispatch(addItemToCart(item)),
-    deleteProduct: (id) => dispatch(deleteProduct(id))
-  }
-}
+    deleteProduct: (id) => dispatch(deleteProduct(id)),
+  };
+};
 
 export default connect(mapStateToProps, dispatchToProps)(SingleProduct);

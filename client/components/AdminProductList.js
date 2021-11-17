@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const AdminProductList = () => {
+  const { auth } = useSelector((state) => state);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -18,34 +19,36 @@ const AdminProductList = () => {
     getProducts();
   }, []);
 
-  return (
-    <div id="admin-product-list">
-      <Link to="/admin-products/create">
-        <button>Create New Product</button>
-      </Link>
-      <h1>Product List</h1>
-      <div id="admin-products">
-        {products.map((product) => (
-          <div key={product.id} id="product">
-            {product.name}
-            <br />
-            <Link to={`/products/${product.id}`}>
-              <button>View Product Page</button>
-            </Link>
-          </div>
-        ))}
+  if (auth.isAdmin === true) {
+    return (
+      <div id="admin-product-list" className="content">
+        <h1>Product List</h1>
+        <Link to="/admin-products/create">
+          <button>Create New Product</button>
+        </Link>
+        <table id="admin-products">
+          {products.map((product) => (
+            <tr key={product.id} className="product-row">
+              <td>{product.name}</td>
+              <td>
+                <Link to={`/products/${product.id}`}>View Product Page</Link>
+              </td>
+            </tr>
+          ))}
+        </table>
+        <Link to="/admin-portal">
+          <button>Back to Administrator Portal</button>
+        </Link>
       </div>
-      <Link to="/admin-portal">
-        <button>Back to Administrator Portal</button>
+    );
+  } else {
+    <div className="content">
+      <h3>You are not authorized to access this content.</h3>
+      <Link to="/">
+        <button>Return to the home page</button>
       </Link>
-    </div>
-  );
+    </div>;
+  }
 };
 
-const mapState = (state) => {
-  return {
-    auth: state.auth,
-  };
-};
-
-export default connect(mapState)(AdminProductList);
+export default AdminProductList;

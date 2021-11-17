@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const AdminPortal = ({ isAdmin }) => {
   if (isAdmin) {
     return (
-      <div id="admin-portal">
+      <div id="admin-portal" className="content">
         <h3>Administrator Portal</h3>
         <div id="admin-controls">
           <Link to="/admin-users">
@@ -19,7 +19,7 @@ const AdminPortal = ({ isAdmin }) => {
     );
   } else {
     return (
-      <div>
+      <div className="content">
         <h3>You are not authorized to access this content.</h3>
         <Link to="/">
           <button>Return to the home page</button>

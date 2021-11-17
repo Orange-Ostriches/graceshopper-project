@@ -17,7 +17,7 @@ export const AllProducts = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, [])
+  }, []);
 
   const clearFilter = () => {
     setPriceFilter(0);
@@ -200,9 +200,7 @@ export const AllProducts = () => {
             }
           </div>
         </div>
-        )
-      }
-
+      )}
     </div>
-  )
-}
+  );
+};

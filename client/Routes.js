@@ -1,18 +1,18 @@
-import React, {Component, Fragment} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import {AllProducts} from './components/AllProducts';
-import { Login, Signup } from './components/AuthForm';
-import {Home} from './components/Home';
-import {me} from './store'
-import SingleProduct from './components/SingleProduct';
-import Cart from './components/Cart';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { AllProducts } from "./components/AllProducts";
+import { Login, Signup } from "./components/AuthForm";
+import { Home } from "./components/Home";
+import { me } from "./store";
+import SingleProduct from "./components/SingleProduct";
+import Cart from "./components/Cart";
 import AdminUserList from "./components/AdminUserList";
 import AdminPortal from "./components/AdminPortal";
 import AdminProductList from "./components/AdminProductList";
 import AdminEditProduct from "./components/AdminEditProduct";
 import AdminCreateProduct from "./components/AdminCreateProduct";
-import Checkout from './components/Checkout';
+import Checkout from "./components/Checkout";
 
 /**
  * COMPONENT
@@ -26,7 +26,7 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     return (
-      <div>
+      <main>
         {isLoggedIn ? (
           <Switch>
             <Route exact path="/" component={Home} />
@@ -40,6 +40,7 @@ class Routes extends Component {
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route path="/products/:id/edit" component={AdminEditProduct} />
+            <Route exact path="/cart" component={Cart} />
             <Redirect to="/" />
           </Switch>
         ) : (
@@ -53,7 +54,7 @@ class Routes extends Component {
             <Route exact path="/checkout" component={Checkout} />
           </Switch>
         )}
-      </div>
+      </main>
     );
   }
 }
