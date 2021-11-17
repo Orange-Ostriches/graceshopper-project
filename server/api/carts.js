@@ -14,6 +14,21 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/:userId", async (req, res, next) => {
+  try {
+    const foundCart = await Cart.findAll(
+      { where: {
+        userId: req.params.userId,
+        isCheckedOut: false
+      }}
+      )
+    console.log(foundCart)
+    res.send(await foundCart.getSpaceships())
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post("/guest-checkout", async (req, res, next) => {
   try {
     const spaceships = req.body.cartItems

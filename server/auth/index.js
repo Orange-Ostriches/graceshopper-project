@@ -26,7 +26,38 @@ router.post('/signup', async (req, res, next) => {
 
 router.get('/me', async (req, res, next) => {
   try {
+    let user = await User.findByToken(req.headers.authorization)
+
+    let cart = await Cart.findOrCreate({where: {userId: user.id, isCheckedOut: false}})
+
+    let localStorageSpaceships
+
+    let isNewCart = cart[1]
+    let cartId = cart[0].id
+    let cartObj = cart[0]
+
+    if(!req.headers.spaceships) {
+      localStorageSpaceships = JSON.parse(req.headers.spaceships)
+    }
+
+
+    if(isNewCart) {
+      localStorageSpaceships.forEach( async (spaceship) => {
+        await CartSpaceship.create({
+          itemQty: spaceship.itemQty,
+          cartId: cartId,
+          spaceshipId: spaceship.id
+        })
+      })
+    }
+    // else {
+      // can merge items from localStorage to existing cart here
+      // for now just send existing cart witout taking into account
+      // localStorage items
+    // }
+
     res.send(await User.findByToken(req.headers.authorization))
+
   } catch (ex) {
     next(ex)
   }

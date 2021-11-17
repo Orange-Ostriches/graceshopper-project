@@ -114,12 +114,15 @@ const initialCart = {
 
 export default function (state = initialCart, action) {
   switch (action.type) {
+    
     case CLEAR_CART: {
       return {...state, cartItems: []}
     }
+
     case SET_CART: {
       return {...state, cartItems: [...action.cartItems]}
     }
+
     case ADD_TO_CART: {
       const existingItem = state.cartItems.find((item) => {
         return item.id === action.product.id
@@ -140,6 +143,7 @@ export default function (state = initialCart, action) {
         }
       }
     }
+
     case DECREMENT_ITEM: {
       const existingItem = state.cartItems.find((item) => {
         return item.id === action.product.id
@@ -160,6 +164,7 @@ export default function (state = initialCart, action) {
         }
       }
     }
+
     case REMOVE_FROM_CART: {
       return {
         ...state,

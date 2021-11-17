@@ -21,12 +21,19 @@ const logOut = () => ({type: LOG_OUT, auth: {}})
  */
 export const me = () => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
+
   if (token) {
+
     const res = await axios.get('/auth/me', {
       headers: {
-        authorization: token
+        authorization: token,
+        spaceships: localStorage.cart
       }
     })
+
+    const { data } = await axios.get(`/carts/${res.data.id}`)
+    console.log(data)
+    
     return dispatch(setAuth(res.data))
   }
 }
