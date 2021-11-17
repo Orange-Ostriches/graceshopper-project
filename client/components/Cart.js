@@ -11,7 +11,7 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    this.props.cart.cartItems.length > 0
+    localStorage.length > 0
     ?
     this.props.setCart(this.props.isLoggedIn)
     :
