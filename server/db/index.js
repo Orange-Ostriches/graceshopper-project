@@ -11,8 +11,7 @@ User.hasMany(Cart);
 Cart.belongsTo(User);
 Cart.belongsToMany(Spaceship, { through: CartSpaceship });
 Spaceship.belongsToMany(Cart, { through: CartSpaceship });
-
-
+Cart.hasMany(CartSpaceship)
 
 module.exports = {
   db,

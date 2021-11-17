@@ -7,7 +7,16 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const DECREMENT_ITEM = 'DECREMENT_ITEM'
 const INCREMENT_ITEM = 'INCREMENT_ITEM'
+const USER_GET_CART = 'USER_GET_CART'
+
 export const CLEAR_CART = 'CLEAR_CART'
+
+const _userGetCart = (cart) => {
+  return {
+    type: USER_GET_CART,
+    cart
+  }
+}
 
 const addToCart = (product, itemQty = 1) => {
   return {
@@ -47,6 +56,15 @@ const _setCart = (cartItems) => {
 const _clearCart = () => {
   return {
     type: CLEAR_CART
+  }
+}
+
+export const userGetCart = (userId) => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/carts/${userId}`)
+    dispatch(_userGetCart(data))
+  } catch(error) {
+    console.log(error)
   }
 }
 
@@ -114,7 +132,21 @@ const initialCart = {
 
 export default function (state = initialCart, action) {
   switch (action.type) {
-    
+    case USER_GET_CART:{
+      let itemsArray = []
+
+      for(let i = 0; i < action.cart.spaceships.length; i++) {
+        itemsArray.push(
+          {
+            ...action.cart.spaceships[i],
+            itemQty: action.cart.spaceships[i].cartSpaceship.itemQty
+          })
+      }
+
+      return {...state, ...action.cart, cartItems: [...itemsArray]}
+
+    }
+
     case CLEAR_CART: {
       return {...state, cartItems: []}
     }

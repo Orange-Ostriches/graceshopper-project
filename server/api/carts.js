@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Cart, CartSpaceship },
+  models: { Cart, CartSpaceship, Spaceship },
 } = require("../db");
 module.exports = router;
 
@@ -16,14 +16,18 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:userId", async (req, res, next) => {
   try {
-    const foundCart = await Cart.findAll(
-      { where: {
-        userId: req.params.userId,
-        isCheckedOut: false
-      }}
-      )
-    console.log(foundCart)
-    res.send(await foundCart.getSpaceships())
+
+    const foundCart = await Cart.findOne(
+      {
+        where: {
+          userId: req.params.userId,
+          isCheckedOut: false
+        },
+        include: [Spaceship]
+    }
+    )
+
+    res.send(foundCart)
   } catch (error) {
     next(error)
   }
