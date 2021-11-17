@@ -36,10 +36,10 @@ const _incrementItemFromCart = (product) => {
   }
 }
 
-const _setCart = (cart) => {
+const _setCart = (cartItems) => {
   return {
     type: SET_CART,
-    cart
+    cartItems
   }
 }
 
@@ -52,19 +52,18 @@ const _clearCart = () => {
 export const clearCart = (isLoggedIn, cart) => {
   return async (dispatch) => {
     if(!isLoggedIn) {
-      console.log(cart)
       const { data } = await axios.post("/api/carts/guest-checkout", cart)
-      console.log(data)
-      // dispatch(_clearCart())
-      // localStorage.clear()
+      // could use data to render useful information on checkout confirmation later on
+      dispatch(_clearCart())
+      localStorage.clear()
     }
   }
 }
 
-export const setCart = (cart, isLoggedIn) => {
+export const setCart = (isLoggedIn) => {
   return (dispatch) => {
     if(!isLoggedIn) {
-      dispatch(_setCart(cart))
+      dispatch(_setCart(JSON.parse(localStorage.getItem('cart'))))
     }
   }
 }
@@ -129,8 +128,7 @@ export default function (state = initialCart, action) {
       return {...state, cartItems: []}
     }
     case SET_CART: {
-      console.log(action.cart)
-      return {...state, ...action.cart}
+      return {...state, cartItems: [...action.cartItems]}
     }
     case ADD_TO_CART: {
       const existingItem = state.cartItems.find((item) => {

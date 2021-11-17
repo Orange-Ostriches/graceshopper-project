@@ -1,0 +1,8 @@
+import axios from 'axios'
+
+const SET_CART = "SET_CART"
+const ADD_TO_CART = 'ADD_TO_CART'
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+const DECREMENT_ITEM = 'DECREMENT_ITEM'
+const INCREMENT_ITEM = 'INCREMENT_ITEM'
+const CHECKOUT = 'CHECKOUT'

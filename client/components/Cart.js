@@ -10,11 +10,20 @@ class Cart extends React.Component {
     this.handleCheckout = this.handleCheckout.bind(this)
   }
 
+  componentDidMount() {
+    this.props.cart.cartItems.length > 0
+    ?
+    this.props.setCart(this.props.isLoggedIn)
+    :
+    null
+  }
+
   handleCheckout() {
     this.props.clearCart(this.props.isLoggedIn, this.props.cart)
   }
 
   render() {
+    // this.props.cart.cartItems = this.props.cart.cartItems || []
     const listOfItems = this.props.cart.cartItems.map((item) => {
       return (
         <div className="list-of-items">
@@ -68,7 +77,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCart: (cart) => dispatch(setCart(cart)),
+    setCart: (isLoggedIn) => dispatch(setCart(isLoggedIn)),
     clearCart: (isLoggedIn, cart) => dispatch(clearCart(isLoggedIn, cart))
   }
 }
