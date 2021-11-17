@@ -44,8 +44,22 @@ main {
   flex-direction: row;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  transition: height 200ms ease;
-  transition: top 300ms ease;
+  transition: 200ms ease;
+}
+
+.navbar-hidden {
+  top: -10rem;
+  width: 90vw;
+  height: 5rem;
+  position: fixed;
+  background-color: rgba(141, 152, 167, 0.75);
+  padding: 0px;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  flex-direction: row;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  transition: 400ms ease;
 }
 
 .navbar:hover {
