@@ -50,10 +50,18 @@ form div {
   justify-content: center;
 }
 
+#filters {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter {
+  margin-left: 25px;
+}
+
 #product {
   margin: 25px;
 }
-
 
 .prod-img {
   width: 400px;
