@@ -19,6 +19,16 @@ export const AllProducts = () => {
     dispatch(fetchProducts());
   }, [])
 
+  const clearFilter = () => {
+    setPriceFilter(0);
+    setFuelTypeFilter('all');
+    setSizeFilter('all');
+    setRangeFilter(0);
+    setSpecialtyFilter('all');
+    setTopSpeedFilter(0);
+    setAutopilotFilter(2);
+  };
+
   return (
     <div>
       <div id="filters">
@@ -28,6 +38,7 @@ export const AllProducts = () => {
             <label htmlFor="price">Price</label>
             <select
               name="price"
+              value={priceFilter}
               onChange={e => setPriceFilter(parseInt(e.target.value))}
             >
               <option value={0}>All</option>
@@ -39,6 +50,7 @@ export const AllProducts = () => {
             <label htmlFor="fuelType">Fuel Type</label>
             <select
               name="fuelType"
+              value={fuelTypeFilter}
               onChange={e => setFuelTypeFilter(e.target.value)}
             >
               <option value="all">All</option>
@@ -51,6 +63,7 @@ export const AllProducts = () => {
             <label htmlFor="size">Size</label>
             <select
               name="size"
+              value={sizeFilter}
               onChange={e => setSizeFilter(e.target.value)}
             >
               <option value="all">All</option>
@@ -63,6 +76,7 @@ export const AllProducts = () => {
             <label htmlFor="range">Range</label>
             <select
               name="range"
+              value={rangeFilter}
               onChange={e => setRangeFilter(parseInt(e.target.value))}
             >
               <option value={0}>All</option>
@@ -77,6 +91,7 @@ export const AllProducts = () => {
             <label htmlFor="specialty">Specialty</label>
             <select
               name="specialty"
+              value={specialtyFilter}
               onChange={e => setSpecialtyFilter(e.target.value)}
             >
               <option value="all">All</option>
@@ -90,6 +105,7 @@ export const AllProducts = () => {
             <label htmlFor="topSpeed">Top Speed</label>
             <select
               name="topSpeed"
+              value={topSpeedFilter}
               onChange={e => setTopSpeedFilter(parseInt(e.target.value))}
             >
               <option value={0}>All</option>
@@ -101,6 +117,7 @@ export const AllProducts = () => {
             <label htmlFor="autopilot">Autopilot</label>
             <select
               name="autopilot"
+              value={autopilotFilter}
               onChange={e => setAutopilotFilter(parseInt(e.target.value))}
             >
               <option value={2}>All</option>
@@ -108,6 +125,13 @@ export const AllProducts = () => {
               <option value={0}>No</option>
             </select>
           </div>
+          <button
+            value="clear"
+            type="button"
+            onClick={() => clearFilter()}
+          >
+            Clear Filter
+          </button>
         </form>
       </div>
       {
