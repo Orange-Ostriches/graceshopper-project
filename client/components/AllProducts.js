@@ -29,6 +29,47 @@ export const AllProducts = () => {
     setAutopilotFilter(2);
   };
 
+  const filteredProducts =
+    products
+      .filter(product => {
+        const priceRanges = {499: 100, 1000: 500}
+        if (priceFilter === 0) return product
+        if (product.price <= priceFilter && product.price >= priceRanges[priceFilter]) {
+          return product
+        }
+      })
+      .filter(product => {
+        if (fuelTypeFilter === 'all') return product
+        return product.fuelType === fuelTypeFilter
+      })
+      .filter(product => {
+        if (sizeFilter === 'all') return product
+        return product.size === sizeFilter
+      })
+      .filter(product => {
+        const rangeRanges = {499: 100, 999: 500, 1499: 1000, 1999: 1500, 2500: 2000}
+        if (rangeFilter === 0) return product
+        if (product.range <= rangeFilter && product.range >= rangeRanges[rangeFilter]) {
+          return product
+        }
+      })
+      .filter(product => {
+        if (specialtyFilter === 'all') return product
+        return product.specialty === specialtyFilter
+      })
+      .filter(product => {
+        const topSpeedRanges = {249: 100, 500: 250}
+        if (topSpeedFilter === 0) return product
+        if (product.topSpeed <= topSpeedFilter && product.topSpeed >= topSpeedRanges[topSpeedFilter]) {
+          return product
+        }
+      })
+      .filter(product => {
+        if (autopilotFilter === 2) return product
+        if (product.autopilot && autopilotFilter === 1) return product
+        if (!product.autopilot && autopilotFilter === 0) return product
+      })
+
   return (
     <div>
       <div id="filters">
@@ -141,46 +182,8 @@ export const AllProducts = () => {
         <div id="all-products">
           <div id="products">
             {
-              products
-                .filter(product => {
-                  const priceRanges = {499: 100, 1000: 500}
-                  if (priceFilter === 0) return product
-                  if (product.price <= priceFilter && product.price >= priceRanges[priceFilter]) {
-                    return product
-                  }
-                })
-                .filter(product => {
-                  if (fuelTypeFilter === 'all') return product
-                  return product.fuelType === fuelTypeFilter
-                })
-                .filter(product => {
-                  if (sizeFilter === 'all') return product
-                  return product.size === sizeFilter
-                })
-                .filter(product => {
-                  const rangeRanges = {499: 100, 999: 500, 1499: 1000, 1999: 1500, 2500: 2000}
-                  if (rangeFilter === 0) return product
-                  if (product.range <= rangeFilter && product.range >= rangeRanges[rangeFilter]) {
-                    return product
-                  }
-                })
-                .filter(product => {
-                  if (specialtyFilter === 'all') return product
-                  return product.specialty === specialtyFilter
-                })
-                .filter(product => {
-                  const topSpeedRanges = {249: 100, 500: 250}
-                  if (topSpeedFilter === 0) return product
-                  if (product.topSpeed <= topSpeedFilter && product.topSpeed >= topSpeedRanges[topSpeedFilter]) {
-                    return product
-                  }
-                })
-                .filter(product => {
-                  if (autopilotFilter === 2) return product
-                  if (product.autopilot && autopilotFilter === 1) return product
-                  if (!product.autopilot && autopilotFilter === 0) return product
-                })
-                .map(product => (
+              filteredProducts.length > 0 ?
+                filteredProducts.map((product) => (
                   <div key={product.id} id="product">
                     <Link to={`/products/${product.id}`}>
                       <img className="prod-img" src={product.image} />
@@ -196,7 +199,8 @@ export const AllProducts = () => {
                     <p id="desc">Description: {product.description}</p>
                   </div>
                 )
-              )
+              ) :
+              <h3>Please contact OrangeOstriches SpaceCo to inquire about a custom spaceship!</h3>
             }
           </div>
         </div>
