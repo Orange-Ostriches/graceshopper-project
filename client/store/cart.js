@@ -1,12 +1,13 @@
 /* eslint-disable no-fallthrough */
 import axios from 'axios'
+import history from '../history'
 
 const SET_CART = "SET_CART"
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const DECREMENT_ITEM = 'DECREMENT_ITEM'
 const INCREMENT_ITEM = 'INCREMENT_ITEM'
-const CLEAR_CART = 'CLEAR_CART'
+export const CLEAR_CART = 'CLEAR_CART'
 
 const addToCart = (product, itemQty = 1) => {
   return {
@@ -51,18 +52,19 @@ const _clearCart = () => {
 
 export const clearCart = (isLoggedIn, cart) => {
   return async (dispatch) => {
-    if(!isLoggedIn) {
+    if(localStorage.token) {
       const { data } = await axios.post("/api/carts/guest-checkout", cart)
       // could use data to render useful information on checkout confirmation later on
       dispatch(_clearCart())
-      localStorage.clear()
+      localStorage.removeItem('cart')
     }
+    dispatch(_clearCart())
   }
 }
 
-export const setCart = (isLoggedIn) => {
+export const setCart = () => {
   return (dispatch) => {
-    if(!isLoggedIn) {
+    if(localStorage.cart) {
       dispatch(_setCart(JSON.parse(localStorage.getItem('cart'))))
     }
   }
@@ -79,39 +81,27 @@ export const addItemToCart = (product, isLoggedIn) => {
 
 export const deleteFromCart = (product, isLoggedIn) => {
   return (dispatch, getState) => {
-    try {
-      if (!isLoggedIn) {
-        dispatch(_deleteFromCart(product))
-        localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
-      }
-    } catch (error) {
-      console.log(error)
+    if (!isLoggedIn) {
+      dispatch(_deleteFromCart(product))
+      localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
     }
   }
 }
 
 export const decrementItemFromCart = (product, isLoggedIn) => {
   return (dispatch, getState) => {
-    try {
-      if (!isLoggedIn) {
-        dispatch(_decrementItemFromCart(product))
-        localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
-      }
-    } catch (error) {
-      console.log(error)
+    if (!isLoggedIn) {
+      dispatch(_decrementItemFromCart(product))
+      localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
     }
   }
 }
 
 export const incrementItemFromCart = (product, isLoggedIn) => {
   return (dispatch, getState) => {
-    try {
-      if (!isLoggedIn) {
-        dispatch(_incrementItemFromCart(product))
-        localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
-      }
-    } catch (error) {
-      console.log(error)
+    if (!isLoggedIn) {
+      dispatch(_incrementItemFromCart(product))
+      localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
     }
   }
 }
