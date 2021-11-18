@@ -147,28 +147,6 @@ main {
   transition: 200ms ease;
 }
 
-/* a {
-  text-decoration: none;
-}
-
-label {
-  display: block;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
-} */
-
-/* form div {
-  margin: 1em;
-  display: inline-block;
-} */
-
-/* .account-links {
-  float: right;
-} */
-
 .content {
   margin-top: 4rem;
 }
@@ -222,9 +200,14 @@ nav a {
 }
 
 .slideshow-container {
-  max-width: 90vw;
+  max-width: 80vw;
+  max-height: 80vw;
   position: relative;
   margin: auto;
+}
+
+.slide {
+  border-radius: 10%;
 }
 
 .slide-prev,
@@ -253,14 +236,16 @@ nav a {
 }
 
 .slide-text {
-  color: var(--beige);
-  font-size: 18px;
+  color: var(--blue);
+  font-size: 24px;
   font-family: "Rajdhani";
+  font-weight: 700;
   padding: 8px 12px;
   position: absolute;
   bottom: 8px;
   width: 100%;
   text-align: center;
+  background-color: rgba(141, 152, 167, 0.7);
 }
 
 .slide-dot {
@@ -278,27 +263,68 @@ nav a {
   background-color: rgba(141, 152, 167, 0.75);
 }
 
-/* .fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
+.single-product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-@-webkit-keyframes fade {
-  from {
-    opacity: 0.4;
-  }
-  to {
-    opacity: 1;
-  }
+.featured {
+  margin-top: 0px;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-family: "Rajdhani";
+  font-size: 48px;
+  font-weight: 300;
 }
 
-@keyframes fade {
-  from {
-    opacity: 0.4;
-  }
-  to {
-    opacity: 1;
-  }
-} */
+.card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem));
+  gap: 2rem;
+  justify-content: center;
+}
+
+.card-body {
+  overflow: hidden;
+  box-shadow: 0 2px 20px var(--silver);
+  border-radius: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 200ms ease-in;
+  text-align: center;
+}
+
+.card-text {
+  font-family: "Rajdhani";
+  margin-bottom: 1rem;
+  padding-bottom: 0px;
+}
+
+.card-image {
+  height: 12rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-button {
+  margin-bottom: 1rem;
+  padding: 3% 10%;
+  border-radius: 15px;
+  background-color: var(--blue);
+  font-family: "Rajdhani";
+  font-weight: 700;
+  border-width: 2px;
+  color: var(--beige);
+  border-color: var(--beige);
+  transition: 200ms ease;
+}
+
+.card-button:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+  background-color: var(--beige);
+  box-shadow: 0 0 10px var(--beige);
+}

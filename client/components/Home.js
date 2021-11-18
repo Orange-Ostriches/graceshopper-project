@@ -14,17 +14,23 @@ export const Home = () => {
   const dispatch = useDispatch();
 
   const SLIDES = [
-    { image: "/images/toTheStars.jpg", text: "Take to the stars!" },
-    { image: "/images/luxury.jpg", text: "Travel in style!" },
+    {
+      image: "/images/toTheStars.jpg",
+      text: "Tired of the view from earth? Find your home amongst the stars!",
+    },
+    {
+      image: "/images/luxury.jpg",
+      text: "Never compromise. Orange Ostriches offers only the highest quality starships, so you can travel in style.",
+    },
     {
       image: mainProduct.image,
-      text: mainProduct.name,
+      text: `Not sure where to start? Check out today's featured ship: The ${mainProduct.name}`,
       id: "main-prod-img",
       link: `/products/${mainProduct.id}`,
     },
     {
       image: "/images/orangeOstrich.jpg",
-      text: "Trust the galactic leader in personal space travel.",
+      text: "Trust Orange Ostriches SpaceCo, the galactic leader in personal space travel.",
     },
   ];
 
@@ -44,7 +50,7 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    const interval = setInterval(selectSlide, 4000, slideNumber + 1);
+    const interval = setInterval(selectSlide, 7000, slideNumber + 1);
     return () => clearInterval(interval);
   }, [slideNumber]);
 
@@ -64,8 +70,6 @@ export const Home = () => {
         <h1 className="title">Loading...</h1>
       ) : (
         <div className="main">
-          <h1 className="title">Orange Ostriches SpaceCo</h1>
-
           <div id="carousel-main" className="slideshow-container">
             {SLIDES.map((slide, i) => {
               const active = i === slideNumber;
@@ -78,7 +82,7 @@ export const Home = () => {
                 <img
                   id={id}
                   src={image}
-                  style={{ width: "100%", height: "800px" }}
+                  style={{ width: "100%", height: "700px" }}
                 />
               );
 
@@ -98,34 +102,25 @@ export const Home = () => {
             </a>
           </div>
           <br />
-
-          <div style={{ textAlign: "center" }}>
-            {SLIDES.map((slide, i) => {
-              const active = i === slideNumber;
-
-              return (
-                <span
-                  key={slide.text}
-                  className={`slide-dot ${active ? "active" : ""}`}
-                  onClick={() => selectSlide(i)}
-                  id={`slide-dot-${i + 1}`}
-                />
-              );
-            })}
+          <div>
+            <h3 className="featured">Featured Products</h3>
           </div>
-
-          <div id="carousel">
-            {products.map((product) => (
-              <div key={product.id} id="product">
-                <img
-                  className="prod-img"
-                  src={product.image}
-                  onClick={() => setMainProduct(product)}
-                />
-                <h3>{product.name}</h3>
-                <h4>Price: {product.price}</h4>
-              </div>
-            ))}
+          <div className="card-wrapper">
+            <div className="card">
+              {products.map((product) => (
+                <div key={product.id} className="card-body">
+                  <img
+                    className="card-img"
+                    src={product.image}
+                    onClick={() => setMainProduct(product)}
+                  />
+                  <h3 className="card-text">{product.name}</h3>
+                  <Link to={`/products/${product.id}`}>
+                    <button className="card-button">Details</button>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
