@@ -309,7 +309,23 @@ main {
 .single-product-container {
   display: flex;
   flex-wrap: wrap;
+  justify-self: center;
   justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  margin-left: 35vw;
+  width: 30vw;
+  background-color: rgba(141, 152, 167, 0.1);
+  border: solid var(--silver) 2px;
+  border-radius: 15px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.single-product-info {
+  align-content: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .featured {
@@ -343,7 +359,7 @@ main {
 }
 
 .rupee-sign {
-  margin-left: 0.5rem;
+  margin-left: 0.3rem;
   height: auto;
 }
 
@@ -439,4 +455,17 @@ main {
 
 .product-card-button:hover {
   box-shadow: 0 0 10px var(--beige);
+}
+
+.back-to-products {
+  font-size: 50px;
+  text-shadow: rgba(141, 152, 167, 0.5) 0 0 10px;
+  display: inline-block;
+  justify-self: center;
+  margin-left: 30vw;
+}
+
+.back-text {
+  text-decoration: none;
+  color: var(--silver);
 }

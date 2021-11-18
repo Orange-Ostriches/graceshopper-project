@@ -4,6 +4,7 @@ import { fetchSingleProduct } from "../store/singleProduct";
 import { deleteProduct } from "../store/products";
 import { connect } from "react-redux";
 import { addItemToCart } from "../store/cart";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ooName = "Orange Ostriches SpaceCo";
 
@@ -42,18 +43,17 @@ class SingleProduct extends React.Component {
     const { product, isAdmin } = this.props;
     return (
       <div className="content">
-        <div className="back-to-home">
-          {isAdmin ? (
-            <Link to="/admin-products">Back to Admin Product Portal</Link>
-          ) : (
-            <Link to="/products">Back to All Spaceships</Link>
-          )}
-        </div>
         <div className="single-product-container">
           <div className="single-product-info">
             <img width="400px" src={product.image} alt={product.name} />
             <h1>{product.name}</h1>
-            <h3>Price: {product.price}</h3>
+            <h3>
+              Price: {product.price}{" "}
+              <FontAwesomeIcon
+                icon={["fad", "rupee-sign"]}
+                className="rupee-sign"
+              />
+            </h3>
             <h4>Fuel Type: {product.fuelType}</h4>
             <h4>Size: {product.size}</h4>
             <h4>Range: {product.range}</h4>
@@ -74,11 +74,33 @@ class SingleProduct extends React.Component {
                 </Link>
               </div>
             ) : (
-              <button className="add-to-cart" onClick={this.handleClick}>
+              <button
+                className="product-card-button"
+                onClick={this.handleClick}
+              >
                 Add To Cart
               </button>
             )}
           </div>
+        </div>
+        <div className="back-to-products">
+          {isAdmin ? (
+            <Link to="/admin-products" className="back-text">
+              <FontAwesomeIcon
+                icon={["fad", "backward"]}
+                className="back-arrow"
+              />
+              <span>Back to Admin Product Portal</span>
+            </Link>
+          ) : (
+            <Link to="/products" className="back-text">
+              <FontAwesomeIcon
+                icon={["fad", "backward"]}
+                className="back-arrow"
+              />
+              <span>Back to All Products</span>
+            </Link>
+          )}
         </div>
       </div>
     );
