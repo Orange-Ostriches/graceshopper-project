@@ -1,6 +1,5 @@
 import axios from 'axios'
 import history from '../history'
-import { clearCart } from './cart'
 
 const TOKEN = 'token'
 
@@ -8,13 +7,11 @@ const TOKEN = 'token'
  * ACTION TYPES
  */
 const SET_AUTH = 'SET_AUTH'
-const LOG_OUT = 'LOG_OUT'
 
 /**
  * ACTION CREATORS
  */
 const setAuth = auth => ({type: SET_AUTH, auth})
-const logOut = () => ({type: LOG_OUT, auth: {}})
 
 /**
  * THUNK CREATORS
@@ -42,12 +39,11 @@ export const authenticate = (username, password, method) => async dispatch => {
 }
 
 export const logout = () => {
-  return dispatch => {
-    window.localStorage.removeItem(TOKEN)
-    localStorage.removeItem('cart')
-    dispatch(clearCart())
-    dispatch(logOut())
-    history.push('/login')
+  window.localStorage.removeItem(TOKEN)
+  history.push('/login')
+  return {
+    type: SET_AUTH,
+    auth: {}
   }
 }
 
@@ -57,8 +53,6 @@ export const logout = () => {
 export default function(state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
-      return action.auth
-    case LOG_OUT:
       return action.auth
     default:
       return state

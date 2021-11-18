@@ -50,17 +50,21 @@ class SingleProduct extends React.Component {
           )}
         </div>
         <div className="single-product-container">
-          <div className="single-product-info">
+          <div className="single-product-image">
             <img width="400px" src={product.image} alt={product.name} />
-            <h1>{product.name}</h1>
-            <h3>Price: {product.price}</h3>
-            <h4>Fuel Type: {product.fuelType}</h4>
-            <h4>Size: {product.size}</h4>
-            <h4>Range: {product.range}</h4>
-            <h4>Specialty: {product.specialty}</h4>
-            <h4>Top Speed: {product.topSpeed} lyph</h4>
-            <h4>Autopilot? {product.autopilot ? "Yes" : "No"}</h4>
-            <p id="desc">Description: {product.description}</p>
+          </div>
+          <div className="single-product-info">
+            <h2>{product.name}</h2>
+            <h3>Price: ${product.price}</h3>
+            <p>Description: {product.description}</p>
+            <p>
+              Size:
+              <select>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+              </select>
+            </p>
             {isAdmin ? (
               <div>
                 <Link to={`/products/${product.id}/edit`}>

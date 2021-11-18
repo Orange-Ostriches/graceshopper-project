@@ -2,6 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 
 const Cart = db.define("cart", {
+  // add boolean field for isCheckedOut 
   totalProducts: {
     type: Sequelize.INTEGER,
     defaultValue: 0
@@ -9,10 +10,6 @@ const Cart = db.define("cart", {
   subtotal: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
-  },
-  isCheckedOut: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
   }
 });
 

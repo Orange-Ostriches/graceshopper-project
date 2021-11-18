@@ -15,7 +15,7 @@ class CartItem extends React.Component {
           <p>{item.name}</p>
         </li>
         <li className="item-qty">
-          <p>Quantity: {item.itemQty}</p>
+          <p>Quantity: {item.qty}</p>
         </li>
         <li className="item-price">
           <p>Price: ${item.price}</p>

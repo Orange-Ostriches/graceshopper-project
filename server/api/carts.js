@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Cart, CartSpaceship },
+  models: { Cart },
 } = require("../db");
 module.exports = router;
 
@@ -13,33 +13,6 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
-
-router.post("/guest-checkout", async (req, res, next) => {
-  try {
-    const spaceships = req.body.cartItems
-    let newCart = await Cart.create()
-    let foundspaceships
-    await newCart.update({isCheckedOut: true})
-
-    spaceships.forEach( async (spaceship) => {
-      await CartSpaceship.create({
-        itemQty: spaceship.itemQty,
-        cartId: newCart.id,
-        spaceshipId: spaceship.id
-      }).then(async () => {
-        foundspaceships = await CartSpaceship.findAll({
-          where: {
-            cartId: newCart.id
-          }
-        })
-      }
-      ).finally(() => res.send(foundspaceships))
-    })
-
-  } catch(error) {
-    next(error)
-  }
-})
 
 router.put("/", async (req, res, next) => {
   const product = req.body;
@@ -58,4 +31,3 @@ router.put("/", async (req, res, next) => {
     }
   });
 });
-

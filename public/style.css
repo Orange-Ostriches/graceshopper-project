@@ -219,12 +219,6 @@ nav a {
   width: 400px;
 }
 
-.single-product-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 #logo {
   width: 100px;
   /* margin: 10px; */

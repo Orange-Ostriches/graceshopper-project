@@ -1,18 +1,17 @@
 /* eslint-disable no-fallthrough */
 import axios from 'axios'
-import history from '../history'
 
 const SET_CART = "SET_CART"
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const DECREMENT_ITEM = 'DECREMENT_ITEM'
 const INCREMENT_ITEM = 'INCREMENT_ITEM'
-export const CLEAR_CART = 'CLEAR_CART'
+const CLEAR_CART = 'CLEAR_CART'
 
-const addToCart = (product, itemQty = 1) => {
+const addToCart = (product, qty = 1) => {
   return {
     type: ADD_TO_CART,
-    product: { ...product, itemQty }
+    product: { ...product, qty }
   }
 }
 
@@ -37,10 +36,10 @@ const _incrementItemFromCart = (product) => {
   }
 }
 
-const _setCart = (cartItems) => {
+const _setCart = (cart) => {
   return {
     type: SET_CART,
-    cartItems
+    cart
   }
 }
 
@@ -50,28 +49,23 @@ const _clearCart = () => {
   }
 }
 
-export const clearCart = (isLoggedIn, cart) => {
+export const clearCart = () => {
   return async (dispatch) => {
-    if(localStorage.token) {
-      const { data } = await axios.post("/api/carts/guest-checkout", cart)
-      // could use data to render useful information on checkout confirmation later on
-      dispatch(_clearCart())
-      localStorage.removeItem('cart')
-    }
     dispatch(_clearCart())
+    localStorage.clear()
   }
 }
 
-export const setCart = () => {
-  return (dispatch) => {
-    if(localStorage.cart) {
-      dispatch(_setCart(JSON.parse(localStorage.getItem('cart'))))
+export const setCart = (cart, isLoggedIn) => {
+  return async (dispatch) => {
+    if(!isLoggedIn) {
+      dispatch(_setCart(cart))
     }
   }
 }
 
 export const addItemToCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     if (!isLoggedIn) {
       dispatch(addToCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
@@ -80,28 +74,40 @@ export const addItemToCart = (product, isLoggedIn) => {
 }
 
 export const deleteFromCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
-    if (!isLoggedIn) {
-      dispatch(_deleteFromCart(product))
-      localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+  return async (dispatch, getState) => {
+    try {
+      if (!isLoggedIn) {
+        dispatch(_deleteFromCart(product))
+        localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 }
 
 export const decrementItemFromCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
-    if (!isLoggedIn) {
-      dispatch(_decrementItemFromCart(product))
-      localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+  return async (dispatch, getState) => {
+    try {
+      if (!isLoggedIn) {
+        dispatch(_decrementItemFromCart(product))
+        localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 }
 
 export const incrementItemFromCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
-    if (!isLoggedIn) {
-      dispatch(_incrementItemFromCart(product))
-      localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+  return async (dispatch, getState) => {
+    try {
+      if (!isLoggedIn) {
+        dispatch(_incrementItemFromCart(product))
+        localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 }
@@ -118,14 +124,15 @@ export default function (state = initialCart, action) {
       return {...state, cartItems: []}
     }
     case SET_CART: {
-      return {...state, cartItems: [...action.cartItems]}
+      console.log(action.cart)
+      return {...state, ...action.cart}
     }
     case ADD_TO_CART: {
       const existingItem = state.cartItems.find((item) => {
         return item.id === action.product.id
       })
       if (existingItem) {
-        action.product.itemQty += existingItem.itemQty
+        action.product.qty += existingItem['qty']
         return {
           ...state,
           cartItems: state.cartItems.map((item) => {
@@ -145,8 +152,8 @@ export default function (state = initialCart, action) {
         return item.id === action.product.id
       })
       if (existingItem) {
-        action.product.itemQty -= 1
-        if (action.product.itemQty < 1) {
+        action.product.qty -= 1
+        if (action.product.qty < 1) {
           return {
             ...state,
             cartItems: state.cartItems.filter(item => item.id !== action.product.id)
@@ -172,7 +179,7 @@ export default function (state = initialCart, action) {
         return item.id === action.product.id
       })
       if (existingItem) {
-        action.product.itemQty += 1
+        action.product.qty += 1
         return {
           ...state, cartItems: state.cartItems.map((item) => {
             return item === existingItem ? action.product : item
