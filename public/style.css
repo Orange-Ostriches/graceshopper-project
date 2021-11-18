@@ -45,6 +45,7 @@ main {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   transition: 200ms ease;
+  z-index: 100;
 }
 
 .navbar-hidden {
@@ -103,8 +104,8 @@ main {
 }
 
 #logo {
-  width: 40px;
-  height: 50px;
+  width: 75px;
+  height: 45px;
 }
 
 .nav-link {
@@ -174,17 +175,18 @@ nav a {
 
 .title {
   text-align: center;
+  font-family: "Rajdhani";
 }
 
 #main-prod-title {
   text-align: center;
 }
 
-#main-prod-img {
+/* #main-prod-img {
   width: 800px;
   display: block;
   margin: auto;
-}
+} */
 
 #carousel {
   display: flex;
@@ -219,12 +221,84 @@ nav a {
   width: 400px;
 }
 
-#logo {
-  width: 100px;
-  /* margin: 10px; */
+.slideshow-container {
+  max-width: 90vw;
+  position: relative;
+  margin: auto;
 }
 
-/* #logo-name {
-  display: flex;
-  flex-wrap: wrap;
+.slide-prev,
+.slide-next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  background-color: rgba(141, 152, 167, 0.75);
+  user-select: none;
+}
+
+.slide-next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.slide-prev:hover,
+.slide-next:hover {
+  background-color: rgba(141, 152, 167, 0.95);
+}
+
+.slide-text {
+  color: var(--beige);
+  font-size: 18px;
+  font-family: "Rajdhani";
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.slide-dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  background-color: rgba(141, 152, 167, 0.1);
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.slide-active,
+.slide-dot:hover {
+  background-color: rgba(141, 152, 167, 0.75);
+}
+
+/* .fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
 } */

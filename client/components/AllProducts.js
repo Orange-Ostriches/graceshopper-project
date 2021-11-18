@@ -204,12 +204,6 @@ export const AllProducts = () => {
                   <p id="desc">Description: {product.description}</p>
                 </div>
               ))}
-            {products[0] === undefined ? (
-              <h3>
-                Can't find your perfect starship? Contact Orange Ostriches
-                SpaceCo about custom builds!
-              </h3>
-            ) : null}
           </div>
         </div>
       )}

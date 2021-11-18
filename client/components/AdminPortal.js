@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const AdminPortal = ({ isAdmin }) => {
+const AdminPortal = ({ isAdmin, auth }) => {
+  console.log(auth);
   if (isAdmin) {
     return (
       <div id="admin-portal" className="content">
@@ -32,6 +33,7 @@ const AdminPortal = ({ isAdmin }) => {
 const mapState = (state) => {
   return {
     isAdmin: state.auth.isAdmin,
+    auth: state.auth,
   };
 };
 

@@ -33,6 +33,7 @@ const AdminProductList = () => {
               <td>
                 <Link to={`/products/${product.id}`}>View Product Page</Link>
               </td>
+              <td>{product.fuelType}</td>
             </tr>
           ))}
         </table>

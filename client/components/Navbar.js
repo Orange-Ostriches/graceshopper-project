@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => {
+  const { auth } = useSelector((state) => state);
   const [scrollY, setScrollY] = useState(0);
   const [newScroll, setNewScroll] = useState(0);
   let showNav = true;
@@ -45,6 +46,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => {
               </Link>
             </div>
             <div className="nav-right">
+              <h3>{auth.username}</h3>
               {isAdmin ? (
                 <Link to="/admin-portal" className="nav-link">
                   <FontAwesomeIcon icon={["fad", "solar-system"]} />
@@ -76,6 +78,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => {
               </Link>
             </div>
             <div className="nav-right">
+              <h3>Guest</h3>
               <Link to="/cart" className="nav-link">
                 <FontAwesomeIcon icon={["fad", "shopping-cart"]} />
                 <span className="link-text">Cart</span>
