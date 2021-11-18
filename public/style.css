@@ -335,6 +335,18 @@ main {
   justify-content: center;
 }
 
+.product-card-price {
+  color: var(--orange);
+  width: 100px;
+  margin-left: 38%;
+  border-radius: 10%;
+}
+
+.rupee-sign {
+  margin-left: 0.5rem;
+  height: auto;
+}
+
 .card-body {
   overflow: hidden;
   box-shadow: 0 2px 20px var(--silver);

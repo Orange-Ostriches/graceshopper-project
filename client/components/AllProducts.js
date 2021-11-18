@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../store/products";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const AllProducts = () => {
   const { products } = useSelector((state) => state);
@@ -212,9 +213,15 @@ export const AllProducts = () => {
                 >
                   <img className="product-card-image" src={product.image} />
                   <h1 className="product-card-name">{product.name}</h1>
-                  <h3 className="product-card-price">Price: {product.price}</h3>
+                  <h3 className="product-card-price">
+                    {product.price}{" "}
+                    <FontAwesomeIcon
+                      icon={["fad", "rupee-sign"]}
+                      className="rupee-sign"
+                    />
+                  </h3>
                   <p id="desc" className="product-card-text">
-                    Description: {product.description}
+                    {product.description}
                   </p>
                   <Link to={`/products/${product.id}`}>
                     <button className="product-card-button">
