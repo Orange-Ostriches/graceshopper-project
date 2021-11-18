@@ -24,12 +24,19 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// router.get("/auth", async (req, res, next) => {
+
+// router.get("/:id", async (req, res, next) => {
 //   try {
-//     console.log(req.headers.authorization);
-//     const { id, isAdmin } = await User.findByToken(req.headers.authorization);
-//     res.send({ id, isAdmin });
-//   } catch (err) {
-//     next(err);
+//     const user = await User.findByPk(req.params.id);
+//     if (!user) {
+//       const error = Error("User not found");
+//       error.status = 404;
+//       throw error;
+//     }
+//     res.json(user);
+//   } catch (error) {
+//     next(error);
 //   }
-// });
+// })
+
+

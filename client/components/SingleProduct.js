@@ -59,14 +59,6 @@ class SingleProduct extends React.Component {
             <h2>{product.name}</h2>
             <h3>Price: ${product.price}</h3>
             <p>Description: {product.description}</p>
-            <p>
-              Size:
-              <select>
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-              </select>
-            </p>
             {isAdmin ? (
               <div>
                 <Link to={`/products/${product.id}/edit`}>

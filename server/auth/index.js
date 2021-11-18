@@ -4,7 +4,7 @@ module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
-    res.send({ token: await User.authenticate(req.body)}); 
+    res.send({ token: await User.authenticate(req.body)});
   } catch (err) {
     next(err)
   }
@@ -31,3 +31,18 @@ router.get('/me', async (req, res, next) => {
     next(ex)
   }
 })
+
+router.put("/:id"), async (req, res, next) => {
+  try {
+    console.log(req.body)
+    const userId = req.params.id
+    const user = User.findByPk(userId);
+    if (user) {
+      res.send(await user.update(req.body));
+    }
+  } catch {
+    next(err);
+  }
+}
+
+

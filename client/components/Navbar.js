@@ -15,6 +15,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           {/* The navbar will show these links after you log in */}
           <Link to="/">Home</Link>
           <Link to="/products">All Products</Link>
+          <Link to="/profile">My Profile</Link>
           {isAdmin ? (
             <Link to="/admin-portal" className="account-links">
               Admin Portal
