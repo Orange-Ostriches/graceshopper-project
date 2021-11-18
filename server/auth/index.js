@@ -33,7 +33,6 @@ router.get('/me', async (req, res, next) => {
 
     let isNewCart = cart[1]
     let cartId = cart[0].id
-    let cartObj = cart[0]
 
     if(req.headers.spaceships !== 'undefined') {
       localStorageSpaceships = JSON.parse(req.headers.spaceships)
@@ -48,11 +47,15 @@ router.get('/me', async (req, res, next) => {
         })
       })
     }
-    // else {
-      // can merge items from localStorage to existing cart here
-      // for now just send existing cart witout taking into account
-      // localStorage items if user already has a cart in db
-    // }
+    else if(localStorageSpaceships !== undefined) {
+      localStorageSpaceships.forEach( async (spaceship) => {
+        await CartSpaceship.create({
+          itemQty: spaceship.itemQty,
+          cartId: cartId,
+          spaceshipId: spaceship.id
+        })
+      })
+    }
 
     res.send(await User.findByToken(req.headers.authorization))
 

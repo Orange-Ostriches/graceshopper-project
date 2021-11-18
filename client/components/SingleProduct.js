@@ -101,7 +101,7 @@ const mapStateToProps = (state) => {
 const dispatchToProps = (dispatch) => {
   return {
     getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
-    itemToCart: (item) => dispatch(addItemToCart(item)),
+    itemToCart: (item, isLoggedIn) => dispatch(addItemToCart(item, isLoggedIn)),
     deleteProduct: (id) => dispatch(deleteProduct(id))
   }
 }

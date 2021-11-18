@@ -1,6 +1,5 @@
 /* eslint-disable no-fallthrough */
 import axios from 'axios'
-import history from '../history'
 
 const SET_CART = "SET_CART"
 const ADD_TO_CART = 'ADD_TO_CART'
@@ -59,67 +58,98 @@ const _clearCart = () => {
   }
 }
 
-export const userGetCart = (userId) => async dispatch => {
+export const userGetCart = (credential = localStorage.token) => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/carts/${userId}`)
+    const {data} = await axios.get(`/api/carts/${credential}`)
     dispatch(_userGetCart(data))
   } catch(error) {
     console.log(error)
   }
 }
 
-export const clearCart = (isLoggedIn, cart) => {
+export const clearCart = (cart, isLoggedIn) => {
   return async (dispatch) => {
-    if(localStorage.token) {
+    if(!isLoggedIn) {
       const { data } = await axios.post("/api/carts/guest-checkout", cart)
       // could use data to render useful information on checkout confirmation later on
       dispatch(_clearCart())
       localStorage.removeItem('cart')
+    } else {
+      await axios.post("/api/carts/user-checkout", cart)
     }
-    dispatch(_clearCart())
   }
 }
 
 export const setCart = () => {
   return (dispatch) => {
-    if(localStorage.cart) {
+    if(!localStorage.token && localStorage.cart) {
       dispatch(_setCart(JSON.parse(localStorage.getItem('cart'))))
     }
   }
 }
 
 export const addItemToCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     if (!isLoggedIn) {
       dispatch(addToCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+    } else {
+      try {
+        await axios.post(`/api/carts/${product.id}/${localStorage.token}`)
+      } catch(error) {
+        console.log(error)
+      }
     }
   }
 }
 
 export const deleteFromCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
+
     if (!isLoggedIn) {
       dispatch(_deleteFromCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+    } else {
+      try {
+        await axios.delete(
+          `/api/carts/${product.cartSpaceship.cartId}/${product.cartSpaceship.spaceshipId}`
+        )
+        dispatch(userGetCart())
+      } catch(error) {
+        console.log(error)
+      }
     }
   }
 }
 
 export const decrementItemFromCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     if (!isLoggedIn) {
       dispatch(_decrementItemFromCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+    } else {
+      try {
+        await axios.put(`/api/carts/${product.id}/${localStorage.token}`)
+        dispatch(userGetCart())
+      } catch(error) {
+        console.log(error)
+      }
     }
   }
 }
 
 export const incrementItemFromCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     if (!isLoggedIn) {
       dispatch(_incrementItemFromCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+    }else {
+      try {
+        await axios.post(`/api/carts/${product.id}/${localStorage.token}`)
+        dispatch(userGetCart())
+      } catch(error) {
+        console.log(error)
+      }
     }
   }
 }
@@ -139,7 +169,9 @@ export default function (state = initialCart, action) {
         itemsArray.push(
           {
             ...action.cart.spaceships[i],
-            itemQty: action.cart.spaceships[i].cartSpaceship.itemQty
+            itemQty: action.cart.spaceships[i].cartSpaceship.itemQty,
+            cartId: action.cart.spaceships[i].cartSpaceship.cartId,
+            spaceshipId: action.cart.spaceships[i].cartSpaceship.spaceshipId
           })
       }
 

@@ -33,6 +33,7 @@ export const me = () => async dispatch => {
       }
     })
     dispatch(userGetCart(res.data.id))
+    window.localStorage.removeItem('cart')
     dispatch(setAuth(res.data))
   }
 }
