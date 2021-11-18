@@ -119,9 +119,9 @@ const mapStateToProps = (state) => {
 const dispatchToProps = (dispatch) => {
   return {
     getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
-    itemToCart: (item) => dispatch(addItemToCart(item)),
-    deleteProduct: (id) => dispatch(deleteProduct(id)),
-  };
-};
+    itemToCart: (item, isLoggedIn) => dispatch(addItemToCart(item, isLoggedIn)),
+    deleteProduct: (id) => dispatch(deleteProduct(id))
+  }
+}
 
 export default connect(mapStateToProps, dispatchToProps)(SingleProduct);

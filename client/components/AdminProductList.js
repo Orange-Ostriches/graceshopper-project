@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { connect, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import AdminProductRow from "./AdminProductRow";
 
 const AdminProductList = () => {
   const { auth } = useSelector((state) => state);
@@ -27,15 +28,26 @@ const AdminProductList = () => {
           <button>Create New Product</button>
         </Link>
         <table id="admin-products">
-          {products.map((product) => (
-            <tr key={product.id} className="product-row">
-              <td>{product.name}</td>
-              <td>
-                <Link to={`/products/${product.id}`}>View Product Page</Link>
-              </td>
-              <td>{product.fuelType}</td>
+          <tbody>
+            <tr id="columns">
+              <th></th>
+              <th></th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Fuel Type</th>
+              <th>Size</th>
+              <th>Range</th>
+              <th>Specialty</th>
+              <th>Top Speed</th>
+              <th>Autopilot</th>
+              <th>Description</th>
+              <th>Image URL</th>
             </tr>
-          ))}
+            {products.map((product) => {
+              return <AdminProductRow key={product.id} product={product}/>
+            })
+            }
+          </tbody>
         </table>
         <Link to="/admin-portal">
           <button>Back to Administrator Portal</button>

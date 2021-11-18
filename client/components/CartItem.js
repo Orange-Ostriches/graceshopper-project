@@ -21,7 +21,7 @@ class CartItem extends React.Component {
           <p>Price: ${item.price}</p>
         </li>
         <li className="item-total">
-          <p>Total: ${item.price * item.qty}</p>
+          <p>Total: ${item.price * item.itemQty}</p>
         </li>
 
         <button
@@ -32,15 +32,15 @@ class CartItem extends React.Component {
         </button>
 
         <button
-          className="increment-item"
-          onClick={() => this.props.incrementItem(item)}
+        className="increment-item"
+        onClick={() => this.props.incrementItem(item, this.props.isLoggedIn)}
         >
           +
         </button>
 
         <button
-          className="remove-item"
-          onClick={() => this.props.removeItem(item)}
+        className="remove-item"
+        onClick={() => this.props.removeItem(item, this.props.isLoggedIn, this.props.userId)}
         >
           Remove From Cart
         </button>
@@ -58,16 +58,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    decrementItem: (item) => {
-      dispatch(decrementItemFromCart(item));
+    decrementItem: (item, isLoggedIn) => {
+      dispatch(decrementItemFromCart(item, isLoggedIn))
     },
-    removeItem: (item) => {
-      dispatch(deleteFromCart(item));
+    removeItem: (item, isLoggedIn) => {
+      dispatch(deleteFromCart(item, isLoggedIn))
     },
-    incrementItem: (item) => {
-      dispatch(incrementItemFromCart(item));
-    },
-  };
-};
+    incrementItem: (item, isLoggedIn) => {
+      dispatch(incrementItemFromCart(item, isLoggedIn))
+    }
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

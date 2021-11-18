@@ -9,9 +9,9 @@ const Cart = require("./models/Cart");
 User.hasMany(Cart);
 User.hasMany(Spaceship);
 Cart.belongsTo(User);
-Cart.hasMany(Spaceship);
-Spaceship.belongsTo(Cart);
-Spaceship.belongsTo(User, { through: Cart })
+Cart.belongsToMany(Spaceship, { through: CartSpaceship });
+Spaceship.belongsToMany(Cart, { through: CartSpaceship });
+Cart.hasMany(CartSpaceship)
 
 module.exports = {
   db,
