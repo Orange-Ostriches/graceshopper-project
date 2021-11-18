@@ -1,13 +1,21 @@
 /* eslint-disable no-fallthrough */
 import axios from 'axios'
-import history from '../history'
 
 const SET_CART = "SET_CART"
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const DECREMENT_ITEM = 'DECREMENT_ITEM'
 const INCREMENT_ITEM = 'INCREMENT_ITEM'
+const USER_GET_CART = 'USER_GET_CART'
+
 export const CLEAR_CART = 'CLEAR_CART'
+
+const _userGetCart = (cart) => {
+  return {
+    type: USER_GET_CART,
+    cart
+  }
+}
 
 const addToCart = (product, itemQty = 1) => {
   return {
@@ -50,58 +58,98 @@ const _clearCart = () => {
   }
 }
 
-export const clearCart = (isLoggedIn, cart) => {
+export const userGetCart = (credential = localStorage.token) => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/carts/${credential}`)
+    dispatch(_userGetCart(data))
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+export const clearCart = (cart, isLoggedIn) => {
   return async (dispatch) => {
-    if(localStorage.token) {
+    if(!isLoggedIn) {
       const { data } = await axios.post("/api/carts/guest-checkout", cart)
       // could use data to render useful information on checkout confirmation later on
       dispatch(_clearCart())
       localStorage.removeItem('cart')
+    } else {
+      await axios.post("/api/carts/user-checkout", cart)
     }
-    dispatch(_clearCart())
   }
 }
 
 export const setCart = () => {
   return (dispatch) => {
-    if(localStorage.cart) {
+    if(!localStorage.token && localStorage.cart) {
       dispatch(_setCart(JSON.parse(localStorage.getItem('cart'))))
     }
   }
 }
 
 export const addItemToCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     if (!isLoggedIn) {
       dispatch(addToCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+    } else {
+      try {
+        await axios.post(`/api/carts/${product.id}/${localStorage.token}`)
+      } catch(error) {
+        console.log(error)
+      }
     }
   }
 }
 
 export const deleteFromCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
+
     if (!isLoggedIn) {
       dispatch(_deleteFromCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+    } else {
+      try {
+        await axios.delete(
+          `/api/carts/${product.cartSpaceship.cartId}/${product.cartSpaceship.spaceshipId}`
+        )
+        dispatch(userGetCart())
+      } catch(error) {
+        console.log(error)
+      }
     }
   }
 }
 
 export const decrementItemFromCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     if (!isLoggedIn) {
       dispatch(_decrementItemFromCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+    } else {
+      try {
+        await axios.put(`/api/carts/${product.id}/${localStorage.token}`)
+        dispatch(userGetCart())
+      } catch(error) {
+        console.log(error)
+      }
     }
   }
 }
 
 export const incrementItemFromCart = (product, isLoggedIn) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     if (!isLoggedIn) {
       dispatch(_incrementItemFromCart(product))
       localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
+    }else {
+      try {
+        await axios.post(`/api/carts/${product.id}/${localStorage.token}`)
+        dispatch(userGetCart())
+      } catch(error) {
+        console.log(error)
+      }
     }
   }
 }
@@ -114,12 +162,31 @@ const initialCart = {
 
 export default function (state = initialCart, action) {
   switch (action.type) {
+    case USER_GET_CART:{
+      let itemsArray = []
+
+      for(let i = 0; i < action.cart.spaceships.length; i++) {
+        itemsArray.push(
+          {
+            ...action.cart.spaceships[i],
+            itemQty: action.cart.spaceships[i].cartSpaceship.itemQty,
+            cartId: action.cart.spaceships[i].cartSpaceship.cartId,
+            spaceshipId: action.cart.spaceships[i].cartSpaceship.spaceshipId
+          })
+      }
+
+      return {...state, ...action.cart, cartItems: [...itemsArray]}
+
+    }
+
     case CLEAR_CART: {
       return {...state, cartItems: []}
     }
+
     case SET_CART: {
       return {...state, cartItems: [...action.cartItems]}
     }
+
     case ADD_TO_CART: {
       const existingItem = state.cartItems.find((item) => {
         return item.id === action.product.id
@@ -140,6 +207,7 @@ export default function (state = initialCart, action) {
         }
       }
     }
+
     case DECREMENT_ITEM: {
       const existingItem = state.cartItems.find((item) => {
         return item.id === action.product.id
@@ -160,6 +228,7 @@ export default function (state = initialCart, action) {
         }
       }
     }
+
     case REMOVE_FROM_CART: {
       return {
         ...state,

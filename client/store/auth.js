@@ -1,6 +1,7 @@
 import axios from 'axios'
 import history from '../history'
 import { clearCart } from './cart'
+import { userGetCart } from './cart'
 
 const TOKEN = 'token'
 
@@ -9,6 +10,7 @@ const TOKEN = 'token'
  */
 const SET_AUTH = 'SET_AUTH'
 const LOG_OUT = 'LOG_OUT'
+
 
 /**
  * ACTION CREATORS
@@ -21,13 +23,18 @@ const logOut = () => ({type: LOG_OUT, auth: {}})
  */
 export const me = () => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
+
   if (token) {
+
     const res = await axios.get('/auth/me', {
       headers: {
-        authorization: token
+        authorization: token,
+        spaceships: localStorage.cart
       }
     })
-    return dispatch(setAuth(res.data))
+    dispatch(userGetCart(res.data.id))
+    window.localStorage.removeItem('cart')
+    dispatch(setAuth(res.data))
   }
 }
 
