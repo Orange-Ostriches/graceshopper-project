@@ -97,9 +97,9 @@ const AdminCreateProduct = () => {
 
         <label htmlFor="fuelType">Product Fuel Type: </label>
         <select name="fuelType" onChange={handleChange}>
-          <option value="plutonium">Plutonium</option>
-          <option value="uranium">Uranium</option>
-          <option value="hydrogen">Hydrogen</option>
+          <option value="Plutonium">Plutonium</option>
+          <option value="Uranium">Uranium</option>
+          <option value="Hydrogen">Hydrogen</option>
         </select>
         <br />
 
@@ -114,10 +114,10 @@ const AdminCreateProduct = () => {
 
         <label htmlFor="specialty">Product Specialty: </label>
         <select name="specialty" onChange={handleChange}>
-          <option value="exploration">Exploration</option>
-          <option value="mining">Mining</option>
-          <option value="combat">Combat</option>
-          <option value="transportation">Transportation</option>
+          <option value="Exploration">Exploration</option>
+          <option value="Mining">Mining</option>
+          <option value="Combat">Combat</option>
+          <option value="Transportation">Transportation</option>
         </select>
         <br />
 

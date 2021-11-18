@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { decrementItemFromCart, deleteFromCart, incrementItemFromCart } from "../store/cart"
 
 class CartItem extends React.Component {
-
   render() {
     const { item } = this.props;
     return (
@@ -12,13 +11,13 @@ class CartItem extends React.Component {
           <p>{item.name}</p>
         </li>
         <li className="item-qty">
-          <p>Quantity: {item.qty}</p>
+          <p>Quantity: {item.itemQty}</p>
         </li>
         <li className="item-price">
           <p>Price: ${item.price}</p>
         </li>
         <li className="item-total">
-          <p>Total: ${item.price * item.qty}</p>
+          <p>Total: ${item.price * item.itemQty}</p>
         </li>
 
         <button
@@ -30,14 +29,14 @@ class CartItem extends React.Component {
 
         <button
         className="increment-item"
-        onClick={() => this.props.incrementItem(item)}
+        onClick={() => this.props.incrementItem(item, this.props.isLoggedIn)}
         >
         +
         </button>
 
         <button
         className="remove-item"
-        onClick={() => this.props.removeItem(item)}
+        onClick={() => this.props.removeItem(item, this.props.isLoggedIn, this.props.userId)}
         >
         Remove From Cart
         </button>
@@ -56,14 +55,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    decrementItem: (item) => {
-      dispatch(decrementItemFromCart(item))
+    decrementItem: (item, isLoggedIn) => {
+      dispatch(decrementItemFromCart(item, isLoggedIn))
     },
-    removeItem: (item) => {
-      dispatch(deleteFromCart(item))
+    removeItem: (item, isLoggedIn) => {
+      dispatch(deleteFromCart(item, isLoggedIn))
     },
-    incrementItem: (item) => {
-      dispatch(incrementItemFromCart(item))
+    incrementItem: (item, isLoggedIn) => {
+      dispatch(incrementItemFromCart(item, isLoggedIn))
     }
   }
 }

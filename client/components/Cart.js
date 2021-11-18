@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import CartItem from './CartItem'
-import { setCart, clearCart } from '../store/cart'
+import { setCart, clearCart, userGetCart } from '../store/cart'
 
 class Cart extends React.Component {
   constructor() {
@@ -10,18 +10,35 @@ class Cart extends React.Component {
     this.handleCheckout = this.handleCheckout.bind(this)
   }
 
+  componentDidMount() {
+    this.props.isLoggedIn ?
+    this.props.userGetCart(localStorage.token)
+    :
+    this.props.setCart()
+  }
+
   handleCheckout() {
-    this.props.clearCart()
+    this.props.clearCart(this.props.cart, this.props.isLoggedIn)
   }
 
   render() {
-    const listOfItems = this.props.cart.cartItems.map((item) => {
+    const cartItems = this.props.cart.cartItems || []
+    let cartTotalPrice = 0
+    const listOfItems = cartItems.map((item) => {
       return (
         <div className="list-of-items">
           <CartItem item={item} key={item.id} />
         </div>
       )
     })
+
+    if(cartItems.length > 0) {
+      const pricesArray = cartItems.map((item) => {
+        return (item.price * item.itemQty)
+      })
+      cartTotalPrice = pricesArray.reduce((a, b) => a + b)
+    }
+
 
     return (
       <div>
@@ -31,6 +48,11 @@ class Cart extends React.Component {
           <ul className="cart-item-list">
             {listOfItems}
           </ul>
+        </div>
+        <div>
+          <p>
+          Cart Total Price: ${cartTotalPrice}
+          </p>
         </div>
 
         {listOfItems.length === 0 ?
@@ -62,14 +84,16 @@ class Cart extends React.Component {
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    userId: state.auth.id
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCart: (cart) => dispatch(setCart(cart)),
-    clearCart: () => dispatch(clearCart())
+    setCart: (isLoggedIn) => dispatch(setCart(isLoggedIn)),
+    clearCart: (isLoggedIn, cart) => dispatch(clearCart(isLoggedIn, cart)),
+    userGetCart: (credential) => dispatch(userGetCart(credential))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

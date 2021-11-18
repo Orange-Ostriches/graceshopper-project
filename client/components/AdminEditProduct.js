@@ -29,9 +29,10 @@ const AdminEditProduct = () => {
     };
 
     if (confirmation) {
+      console.log(product);
       dispatch(updateProduct(state));
       alert(`${product.name} has been changed in the database.`);
-      redirect();
+      // redirect();
     }
   };
 
@@ -80,9 +81,9 @@ const AdminEditProduct = () => {
 
         <label htmlFor="size">Product Size: </label>
         <select name="size" onChange={handleChange} placeholder={state.size}>
-          <option value="small">Small</option>
-          <option value="medium">Medium</option>
-          <option value="large">Large</option>
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
         </select>
         <br />
 
@@ -92,9 +93,9 @@ const AdminEditProduct = () => {
           onChange={handleChange}
           placeholder={state.fuelType}
         >
-          <option value="plutonium">Plutonium</option>
-          <option value="uranium">Uranium</option>
-          <option value="hydrogen">Hydrogen</option>
+          <option value="Plutonium">Plutonium</option>
+          <option value="Uranium">Uranium</option>
+          <option value="Hydrogen">Hydrogen</option>
         </select>
         <br />
 
@@ -113,10 +114,10 @@ const AdminEditProduct = () => {
           onChange={handleChange}
           placeholder={state.specialty}
         >
-          <option value="exploration">Exploration</option>
-          <option value="mining">Mining</option>
-          <option value="combat">Combat</option>
-          <option value="transportation">Transportation</option>
+          <option value="Combat">Combat</option>
+          <option value="Exploration">Exploration</option>
+          <option value="Mining">Mining</option>
+          <option value="Transportation">Transportation</option>
         </select>
         <br />
 
