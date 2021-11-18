@@ -86,14 +86,15 @@ export const AllProducts = () => {
   return (
     <div className="content">
       <div id="filters">
-        <h4>Filter by:</h4>
-        <form>
+        <h3>Filter by:</h3>
+        <form className="form-box">
           <div className="filter">
             <label htmlFor="price">Price</label>
             <select
               name="price"
               value={priceFilter}
               onChange={(e) => setPriceFilter(parseInt(e.target.value))}
+              className="form-select"
             >
               <option value={0}>All</option>
               <option value={499}>100 - 499</option>
@@ -106,6 +107,7 @@ export const AllProducts = () => {
               name="fuelType"
               value={fuelTypeFilter}
               onChange={(e) => setFuelTypeFilter(e.target.value)}
+              className="form-select"
             >
               <option value="all">All</option>
               <option value="Plutonium">Plutonium</option>
@@ -119,6 +121,7 @@ export const AllProducts = () => {
               name="size"
               value={sizeFilter}
               onChange={(e) => setSizeFilter(e.target.value)}
+              className="form-select"
             >
               <option value="all">All</option>
               <option value="Small">Small</option>
@@ -132,6 +135,7 @@ export const AllProducts = () => {
               name="range"
               value={rangeFilter}
               onChange={(e) => setRangeFilter(parseInt(e.target.value))}
+              className="form-select"
             >
               <option value={0}>All</option>
               <option value={499}>100 - 499</option>
@@ -147,6 +151,7 @@ export const AllProducts = () => {
               name="specialty"
               value={specialtyFilter}
               onChange={(e) => setSpecialtyFilter(e.target.value)}
+              className="form-select"
             >
               <option value="all">All</option>
               <option value="Combat">Combat</option>
@@ -161,6 +166,7 @@ export const AllProducts = () => {
               name="topSpeed"
               value={topSpeedFilter}
               onChange={(e) => setTopSpeedFilter(parseInt(e.target.value))}
+              className="form-select"
             >
               <option value={0}>All</option>
               <option value={249}>100 - 249</option>
@@ -173,37 +179,48 @@ export const AllProducts = () => {
               name="autopilot"
               value={autopilotFilter}
               onChange={(e) => setAutopilotFilter(parseInt(e.target.value))}
+              className="form-select"
             >
               <option value={2}>All</option>
               <option value={1}>Yes</option>
               <option value={0}>No</option>
             </select>
           </div>
-          <button value="clear" type="button" onClick={() => clearFilter()}>
-            Clear Filter
-          </button>
+          <div className="filter">
+            <button
+              value="clear"
+              type="button"
+              onClick={() => clearFilter()}
+              className="filter-button"
+            >
+              Clear Filter
+            </button>
+          </div>
         </form>
       </div>
       {products.length < 1 ? (
         <h1 className="title">Loading...</h1>
       ) : (
-        <div id="all-products">
-          <div id="products">
+        <div id="all-products" className="product-card-wrapper">
+          <div id="products" className="product-card">
             {filteredProducts.length > 0 ? (
               filteredProducts.map((product) => (
-                <div key={product.id} id="product">
+                <div
+                  key={product.id}
+                  id="product"
+                  className="product-card-body"
+                >
+                  <img className="product-card-image" src={product.image} />
+                  <h1 className="product-card-name">{product.name}</h1>
+                  <h3 className="product-card-price">Price: {product.price}</h3>
+                  <p id="desc" className="product-card-text">
+                    Description: {product.description}
+                  </p>
                   <Link to={`/products/${product.id}`}>
-                    <img className="prod-img" src={product.image} />
+                    <button className="product-card-button">
+                      Full Details
+                    </button>
                   </Link>
-                  <h1>{product.name}</h1>
-                  <h3>Price: {product.price}</h3>
-                  <h4>Fuel Type: {product.fuelType}</h4>
-                  <h4>Size: {product.size}</h4>
-                  <h4>Range: {product.range}</h4>
-                  <h4>Specialty: {product.specialty}</h4>
-                  <h4>Top Speed: {product.topSpeed} lyph</h4>
-                  <h4>Autopilot? {product.autopilot ? "Yes" : "No"}</h4>
-                  <p id="desc">Description: {product.description}</p>
                 </div>
               ))
             ) : (

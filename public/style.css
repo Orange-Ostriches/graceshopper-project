@@ -180,18 +180,61 @@ main {
 
 #filters {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  width: 80vw;
+  margin-left: 6.2rem;
 }
 
 .filter {
-  margin-left: 25px;
+  width: 200px;
+  display: inline-block;
+  justify-content: center;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.filter-button {
+  width: 150px;
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 23px;
+  padding: 5px;
+  align-self: center;
+  border-radius: 15px;
+  font-family: "Rajdhani";
+  font-weight: 900px;
+  background-color: var(--blue);
+  color: var(--orange);
+  border-color: var(--orange);
+  border-width: 3px;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: row;
+  width: 90vw;
+  margin-left: 30px;
+}
+
+.form-select {
+  width: 90%;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 5px;
+  font-family: "Rajdahni";
+  font-weight: 500;
+  border: none;
+  border-radius: 2px;
+  background-color: var(--beige);
+  font-size: 16px;
+  color: var(--blue);
 }
 
 #product {
   margin: 25px;
 }
 
-.prod-img {
+.product-card-image {
   width: 400px;
 }
 
@@ -285,6 +328,13 @@ main {
   justify-content: center;
 }
 
+.product-card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 20rem));
+  gap: 1rem;
+  justify-content: center;
+}
+
 .card-body {
   overflow: hidden;
   box-shadow: 0 2px 20px var(--silver);
@@ -297,8 +347,34 @@ main {
   text-align: center;
 }
 
+.product-card-body {
+  overflow: hidden;
+  /* box-shadow: 0 2px 20px var(--silver); */
+  border-radius: 15%;
+  border-width: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.product-card-name {
+  margin-bottom: 0px;
+}
+
+.product-card-price {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .card-text {
   font-family: "Rajdhani";
+  margin-bottom: 1rem;
+  padding-bottom: 0px;
+}
+
+.product-card-text {
+  font-family: "Baloo 2";
   margin-bottom: 1rem;
   padding-bottom: 0px;
 }
@@ -306,6 +382,11 @@ main {
 .card-image {
   height: 12rem;
   width: 100%;
+  object-fit: cover;
+}
+
+.product-card-image {
+  height: 20rem;
   object-fit: cover;
 }
 
@@ -320,11 +401,30 @@ main {
   color: var(--beige);
   border-color: var(--beige);
   transition: 200ms ease;
+  cursor: pointer;
+}
+
+.product-card-button {
+  margin-bottom: 1rem;
+  padding: 3% 10%;
+  border-radius: 15px;
+  background-color: var(--beige);
+  font-family: "Rajdhani";
+  font-weight: 700;
+  border-width: 2px;
+  color: var(--blue);
+  border-color: var(--silver);
+  transition: 200ms ease;
+  cursor: pointer;
 }
 
 .card-button:hover {
   color: var(--blue);
   border-color: var(--blue);
   background-color: var(--beige);
+  box-shadow: 0 0 10px var(--beige);
+}
+
+.product-card-button:hover {
   box-shadow: 0 0 10px var(--beige);
 }
