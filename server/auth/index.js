@@ -63,3 +63,18 @@ router.get('/me', async (req, res, next) => {
     next(ex)
   }
 })
+
+router.put("/:id"), async (req, res, next) => {
+  try {
+    console.log(req.body)
+    const userId = req.params.id
+    const user = User.findByPk(userId);
+    if (user) {
+      res.send(await user.update(req.body));
+    }
+  } catch {
+    next(err);
+  }
+}
+
+
