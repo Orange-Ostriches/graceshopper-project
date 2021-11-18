@@ -48,7 +48,7 @@ const AdminProductRow = props => {
               value="edit"
               type="button"
               onClick={() => setEditing(!editing)}
-            >Edit Product</button>
+            >Edit</button>
           </td>
           <td></td>
           <td><Link to={`/products/${id}`}>{name}</Link></td>
