@@ -5,13 +5,14 @@ const db = require("./db");
 const User = require("./models/User");
 const Spaceship = require("./models/Spaceship");
 const Cart = require("./models/Cart");
+const CartSpaceship = require("./models/CartSpaceship")
 
 User.hasMany(Cart);
-User.hasMany(Spaceship);
 Cart.belongsTo(User);
-Cart.hasMany(Spaceship);
-Spaceship.belongsTo(Cart);
-Spaceship.belongsTo(User, { through: Cart })
+Cart.belongsToMany(Spaceship, { through: CartSpaceship });
+Spaceship.belongsToMany(Cart, { through: CartSpaceship });
+
+
 
 module.exports = {
   db,
@@ -19,5 +20,6 @@ module.exports = {
     User,
     Spaceship,
     Cart,
+    CartSpaceship
   },
 };
