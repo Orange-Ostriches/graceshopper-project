@@ -1,33 +1,59 @@
 import React from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../store";
+import { Link } from "react-router-dom";
 
 /**
  * COMPONENT
  */
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
+  let switchedName = "";
+  let switchedLink = "";
+
+  if (displayName === "Login") {
+    switchedName = "Sign Up";
+    switchedLink = "/signup";
+  } else {
+    switchedName = "Login";
+    switchedLink = "/login";
+  }
 
   return (
     <div className="content">
-      <form onSubmit={handleSubmit} name={name}>
+      <div className="auth-form">
+        <form onSubmit={handleSubmit} name={name}>
+          <div>
+            <label htmlFor="username">
+              <small>Username</small>
+            </label>
+            <input name="username" type="text" className="auth-field" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" className="auth-field" />
+          </div>
+          <div>
+            <button type="submit" className="auth-submit">
+              {displayName}
+            </button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+        <hr />
+        <h3 className="auth-text">
+          {displayName === "Login"
+            ? "Don't have an account yet?"
+            : "Already have an account?"}
+        </h3>
         <div>
-          <label htmlFor="username">
-            <small>Username</small>
-          </label>
-          <input name="username" type="text" />
+          <Link to={switchedLink}>
+            <button className="auth-submit">{switchedName}</button>
+          </Link>
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
+      </div>
     </div>
   );
 };

@@ -323,9 +323,11 @@ main {
 }
 
 .single-product-info {
+  overflow: hidden;
   align-content: center;
   justify-content: center;
   text-align: center;
+  word-wrap: normal;
 }
 
 .featured {
@@ -468,4 +470,112 @@ main {
 .back-text {
   text-decoration: none;
   color: var(--silver);
+}
+
+.auth-form {
+  margin-top: 30vh;
+  margin-left: 30vw;
+  width: 40vw;
+  margin-right: 30vw;
+  font-size: 24px;
+}
+
+.auth-field {
+  width: 100%;
+  background-color: var(--beige);
+  font-size: 24px;
+  color: var(--blue);
+}
+
+.auth-submit {
+  margin-top: 1rem;
+  margin-left: 50%;
+  padding: 2%;
+  border-radius: 15px;
+  background-color: var(--blue);
+  font-family: "Rajdhani";
+  font-weight: 700;
+  font-size: 16px;
+  border-width: 2px;
+  color: var(--orange);
+  border-color: var(--silver);
+  transition: 200ms ease;
+  cursor: pointer;
+  justify-self: center;
+}
+
+.auth-submit:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+  background-color: var(--beige);
+  box-shadow: 0 0 10px var(--beige);
+}
+
+.auth-text {
+  margin-left: 30%;
+}
+
+.cart {
+  display: flex;
+  flex-wrap: wrap;
+  justify-self: center;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  margin-left: 35vw;
+  width: 30vw;
+}
+
+.cart-item {
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+  margin: 0px;
+  padding-right: 10px;
+}
+
+.cart-item-list {
+  list-style: none;
+}
+
+.cart-continue {
+  margin-top: 1rem;
+  margin-left: 0px;
+  padding: 3% 10%;
+  border-radius: 15px;
+  background-color: var(--blue);
+  font-family: "Rajdhani";
+  font-weight: 700;
+  font-size: 16px;
+  border-width: 2px;
+  color: var(--orange);
+  border-color: var(--silver);
+  transition: 200ms ease;
+  cursor: pointer;
+  justify-self: center;
+}
+
+.cart-checkout {
+  padding: 3% 10%;
+  border-radius: 15px;
+  background-color: var(--blue);
+  font-family: "Rajdhani";
+  font-weight: 700;
+  font-size: 16px;
+  border-width: 2px;
+  color: var(--beige);
+  border-color: var(--beige);
+  transition: 200ms ease;
+  justify-self: center;
+  cursor: pointer;
+}
+
+.cart-checkout:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+  background-color: var(--beige);
+  box-shadow: 0 0 10px var(--beige);
 }
