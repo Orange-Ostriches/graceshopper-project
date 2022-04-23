@@ -1,8 +1,51 @@
 $base-color: #22223b;
 $accent-color: #e28432;
 $text-color: #f5f7dc;
+$trim-color: #8D98A7;
+
+* {
+    margin: 0;
+    padding: 0;
+}
 
 body {
     background-color: $base-color;
     color: $text-color;
+    width: 100%;
+}
+
+nav {
+    width: 95%;
+    height: 10vh;
+    background-color: $trim-color;
+    opacity: 0.3;
+    margin: 0 auto;
+    border-radius: 0 0 20px 20px;
+    transition: height 0.5s, opacity 0.5s;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    div {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+        header {
+            transition: opacity 0.5s;
+            opacity: 0;
+            font-size: 3em;
+        }
+    }
+    &:hover {
+        height: 30vh;
+        opacity: 0.9;
+        div {
+            header {
+                opacity: 1;
+            }
+        }
+    }
 }
