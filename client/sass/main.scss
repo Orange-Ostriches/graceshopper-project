@@ -2,6 +2,10 @@ $base-color: #22223b;
 $accent-color: #e28432;
 $text-color: #f5f7dc;
 $trim-color: #8D98A7;
+$header-font: 'Chakra Petch', sans-serif;
+$font2: 'Teko', sans-serif;
+$font3: 'Ubuntu Mono', monospace;
+$font4: 'Zilla Slab', serif;
 
 * {
     margin: 0;
@@ -36,12 +40,13 @@ nav {
         header {
             transition: opacity 0.5s;
             opacity: 0;
-            font-size: 3em;
+            font-size: 4em;
+            font-family: $header-font;
         }
     }
     &:hover {
         height: 30vh;
-        opacity: 0.9;
+        opacity: 0.95;
         div {
             header {
                 opacity: 1;

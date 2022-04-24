@@ -33,11 +33,12 @@ nav div {
 nav div header {
   transition: opacity 0.5s;
   opacity: 0;
-  font-size: 3em;
+  font-size: 4em;
+  font-family: "Chakra Petch", sans-serif;
 }
 nav:hover {
   height: 30vh;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 nav:hover div header {
   opacity: 1;
